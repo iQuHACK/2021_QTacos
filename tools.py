@@ -20,6 +20,6 @@ def add_gate(circuit, gate=None, channel=0, channel_op=0):
         circuit.z(channel)
     
     elif gate == "cnot":
-        circuit.cx(channel, channel_op)
+        circuit.cnot(channel, channel_op)
         
     return circuit
