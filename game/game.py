@@ -10,6 +10,8 @@ FPS = 60
 TIME_LIMIT = 6000
 MAX_INGREDIENTS = 6
 SCORE = 0
+CNOT_COUNT = 0
+CNOT_CHANNEL1 = 0
 
 #Basic colors
 BLACK   = (     0,  0,    0)
@@ -146,21 +148,43 @@ class QTaco_builder():
         self.QTaco_list.append(QTaco('Tortilla3'))
 
     def update(self, callback):
-        if callback == 'Tortilla1':
-            if self.queue != None:
-                self.QTaco_list[0].add_ingredient(self.queue)
-                add_gate(qc,gate=self.queue.gate,channel=0)
-                self.queue = None
-        elif callback == 'Tortilla2':
-            if self.queue != None:
-                self.QTaco_list[1].add_ingredient(self.queue)
-                add_gate(qc,gate=self.queue.gate,channel=1)
-                self.queue = None
-        elif callback == 'Tortilla3':
-            if self.queue != None:
-                self.QTaco_list[2].add_ingredient(self.queue)
-                add_gate(qc,gate=self.queue.gate,channel=2)
-                self.queue = None
+        if self.queue != None:
+            global CNOT_COUNT, CNOT_CHANNEL1
+            if self.queue.gate == "cnot":
+                if CNOT_COUNT == 0:
+                    if callback == "Tortilla1":
+                        CNOT_CHANNEL1 = 0
+                    elif callback == "Tortilla2":
+                        CNOT_CHANNEL1 = 1
+                    elif callback == "Tortilla3":
+                        CNOT_CHANNEL1 = 2
+                    CNOT_COUNT += 1
+                else:
+                    if callback == 'Tortilla1':
+                        self.QTaco_list[0].add_ingredient(self.queue)
+                        add_gate(qc,gate=self.queue.gate,channel=CNOT_CHANNEL1,channel_op=0)
+                        self.queue = None
+                    elif callback == 'Tortilla2':
+                        self.QTaco_list[1].add_ingredient(self.queue)
+                        add_gate(qc,gate=self.queue.gate,channel=CNOT_CHANNEL1,channel_op=1)
+                        self.queue = None
+                    elif callback == 'Tortilla3':
+                        self.QTaco_list[2].add_ingredient(self.queue)
+                        add_gate(qc,gate=self.queue.gate,channel=CNOT_CHANNEL1,channel_op=2)
+                        self.queue = None
+            else:
+                if callback == 'Tortilla1':
+                    self.QTaco_list[0].add_ingredient(self.queue)
+                    add_gate(qc,gate=self.queue.gate,channel=0)
+                    self.queue = None
+                elif callback == 'Tortilla2':
+                    self.QTaco_list[1].add_ingredient(self.queue)
+                    add_gate(qc,gate=self.queue.gate,channel=1)
+                    self.queue = None
+                elif callback == 'Tortilla3':
+                    self.QTaco_list[2].add_ingredient(self.queue)
+                    add_gate(qc,gate=self.queue.gate,channel=2)
+                    self.queue = None
         
         if callback == 'Deshebrada':
             self.queue = In_desHebrada
