@@ -285,13 +285,13 @@ class Game(object):
         message_to_screen(screen,order_msg,BLACK,(40,40),60)
 
         #Display initial states
-        state_msg1 = "|1>"
+        state_msg1 = "q0:|{}>".format(state[1])
         message_to_screen(screen,state_msg1,BLACK,(600,140),40)
 
-        state_msg2 = "|1>"
+        state_msg2 = "q1:|{}>".format(state[2])
         message_to_screen(screen,state_msg2,BLACK,(500,350),40)
 
-        state_msg3 = "|1>"
+        state_msg3 = "q2:|{}>".format(state[3])
         message_to_screen(screen,state_msg3,BLACK,(700,350),40)
 
         #Display timer bar
