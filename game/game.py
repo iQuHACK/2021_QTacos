@@ -4,7 +4,8 @@ import random
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
 BLACK = (0,0,0)
-fps = 60
+FPS = 60
+TIME_LIMIT = 6000
 
 #Import resources
 background = pg.image.load('background.jpg')
@@ -33,6 +34,7 @@ class button():
 class Game(object):
     def __init__(self):
         self.score = 0
+        self.
 
     def process_events(self):
         for event in pg.event.get():
@@ -55,13 +57,17 @@ def main():
 
     done = False
     clock = pg.time.Clock()
+    timer = TIME_LIMIT
     game = Game()
 
     while not done:
         done = game.process_events()
         game.run_logic
         game.display_frame(screen)
-        clock.tick(fps)
+        clock.tick(FPS)
+        timer -= 1
+        if timer <= 0:
+            done = True
     pg.quit()
 
 
