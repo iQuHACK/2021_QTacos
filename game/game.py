@@ -7,6 +7,7 @@ SCREEN_HEIGHT = 600
 FPS = 60
 TIME_LIMIT = 6000
 MAX_INGREDIENTS = 6
+SCORE = 0
 
 #Basic colors
 BLACK   = (     0,  0,    0)
@@ -153,10 +154,11 @@ class QTaco_builder():
             simulator = Aer.get_backend('qasm_simulator')
             rqs = measuring(qc, backend=simulator)
             resp = similarity(state_objetivo,rqs)
+            global SCORE
             if resp[0]:
-                self.score += 1
+                SCORE += 1
             else:
-                self.score += -1
+                SCORE += -1
             
             
         elif callback == 'Canasta':
@@ -214,7 +216,7 @@ class button():
 
 class Game(object):
     def __init__(self):
-        self.score = 0
+        global SCORE
         self.builder = QTaco_builder()
 
         #List with every game element (buttons)
@@ -275,7 +277,7 @@ class Game(object):
         self.builder.draw(screen)
 
         #Display score
-        score_msg = "Score: " + str(self.score)
+        score_msg = "Score: " + str(SCORE)
         message_to_screen(screen,score_msg,BLUE,(710,40),60)
 
         #Display order
