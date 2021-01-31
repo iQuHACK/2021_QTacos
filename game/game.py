@@ -142,11 +142,11 @@ class Game(object):
         self.button_list.append(button(paper, paper_glow, (10,-10),(250,120),'Paper'))
 
         #Ingredient init
-        In_desHebrada = ingredient(deshebrada, 'H')
-        In_Xicken = ingredient(chicken, 'X')
-        In_onYon = ingredient(cebolla, 'Y')
-        In_Zilantro = ingredient(cilantro, 'Z')
-        In_pasNOT = ingredient(pastor, 'CNOT')
+        In_desHebrada = ingredient(deshebrada, 'hadamard')
+        In_Xicken = ingredient(chicken, 'x')
+        In_onYon = ingredient(cebolla, 'y')
+        In_Zilantro = ingredient(cilantro, 'z')
+        In_pasNOT = ingredient(pastor, 'cnot')
         
         #List with every taco
         self.QTaco_list = []
