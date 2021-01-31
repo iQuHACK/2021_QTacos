@@ -114,17 +114,17 @@ class QTaco_builder():
         if callback == 'Tortilla1':
             if self.queue != None:
                 self.QTaco_list[0].add_ingredient(self.queue)
-		add_gate(qc,gate=self.queue.gate,channel=0)
+                add_gate(qc,gate=self.queue.gate,channel=0)
                 self.queue = None
         elif callback == 'Tortilla2':
             if self.queue != None:
                 self.QTaco_list[1].add_ingredient(self.queue)
-		add_gate(qc,gate=self.queue.gate,channel=1)
+                add_gate(qc,gate=self.queue.gate,channel=1)
                 self.queue = None
         elif callback == 'Tortilla3':
             if self.queue != None:
                 self.QTaco_list[2].add_ingredient(self.queue)
-		add_gate(qc,gate=self.queue.gate,channel=2)
+                add_gate(qc,gate=self.queue.gate,channel=2)
                 self.queue = None
         
         if callback == 'Deshebrada':
