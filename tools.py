@@ -1,5 +1,6 @@
 import numpy as np
-from qiskit import execute
+import random
+from qiskit import QuantumCircuit, Aer, execute
 from scipy.spatial.distance import cosine
 
 
