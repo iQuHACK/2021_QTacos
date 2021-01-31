@@ -1,5 +1,5 @@
 import pygame as pg
-import random
+import random, os
 from tools import *
 
 SCREEN_WIDTH = 900
@@ -14,31 +14,32 @@ RED     = (   255,  0,    0)
 BLUE    = (     0,  0,  255)
 
 #Import resources
-background = pg.image.load('resources/images/background.jpg')
+game_folder = os.path.dirname(os.path.abspath(__file__))
+background = pg.image.load(os.path.join(game_folder,'resources/images/background.jpg'))
 
-plate = pg.image.load('resources/images/plate.png')
+plate = pg.image.load(os.path.join(game_folder,'resources/images/plate.png'))
 
-tortilla = pg.image.load('resources/images/tortilla.png')
+tortilla = pg.image.load(os.path.join(game_folder,'resources/images/tortilla.png'))
 
-deshebrada = pg.image.load('resources/images/deshebrada.png')
-trompo = pg.image.load('resources/images/trompo.png')
-pastor = pg.image.load('resources/images/pastor.png')
-cilantro = pg.image.load('resources/images/cilantro.png')
-cebolla = pg.image.load('resources/images/cebolla.png')
-chicken = pg.image.load('resources/images/chicken.png')
+deshebrada = pg.image.load(os.path.join(game_folder,'resources/images/deshebrada.png'))
+trompo = pg.image.load(os.path.join(game_folder,'resources/images/trompo.png'))
+pastor = pg.image.load(os.path.join(game_folder,'resources/images/pastor.png'))
+cilantro = pg.image.load(os.path.join(game_folder,'resources/images/cilantro.png'))
+cebolla = pg.image.load(os.path.join(game_folder,'resources/images/cebolla.png'))
+chicken = pg.image.load(os.path.join(game_folder,'resources/images/chicken.png'))
 
-tortilla_glow = pg.image.load('resources/images/tortilla_glow.png')
-deshebrada_glow = pg.image.load('resources/images/deshebrada_glow.png')
-trompo_glow = pg.image.load('resources/images/trompo_glow.png')
-cilantro_glow = pg.image.load('resources/images/cilantro_glow.png')
-cebolla_glow = pg.image.load('resources/images/cebolla_glow.png')
-chicken_glow = pg.image.load('resources/images/chicken_glow.png')
+tortilla_glow = pg.image.load(os.path.join(game_folder,'resources/images/tortilla_glow.png'))
+deshebrada_glow = pg.image.load(os.path.join(game_folder,'resources/images/deshebrada_glow.png'))
+trompo_glow = pg.image.load(os.path.join(game_folder,'resources/images/trompo_glow.png'))
+cilantro_glow = pg.image.load(os.path.join(game_folder,'resources/images/cilantro_glow.png'))
+cebolla_glow = pg.image.load(os.path.join(game_folder,'resources/images/cebolla_glow.png'))
+chicken_glow = pg.image.load(os.path.join(game_folder,'resources/images/chicken_glow.png'))
 
-paper = pg.image.load('resources/images/paper.png')
-paper_glow = pg.image.load('resources/images/paper_glow.png')
-canasta = pg.image.load('resources/images/canasta.png')
-canasta_glow = pg.image.load('resources/images/canasta_glow.png')
-no_glow = pg.image.load('resources/images/no_glow.png')
+paper = pg.image.load(os.path.join(game_folder,'resources/images/paper.png'))
+paper_glow = pg.image.load(os.path.join(game_folder,'resources/images/paper_glow.png'))
+canasta = pg.image.load(os.path.join(game_folder,'resources/images/canasta.png'))
+canasta_glow = pg.image.load(os.path.join(game_folder,'resources/images/canasta_glow.png'))
+no_glow = pg.image.load(os.path.join(game_folder,'resources/images/no_glow.png')
 
 #Circuit and initial state
 qc, state = inicioRandom() 
