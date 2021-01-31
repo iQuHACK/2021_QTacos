@@ -17,7 +17,11 @@ WHITE   = (   255,255,  255)
 RED     = (   255,  0,    0)
 BLUE    = (     0,  0,  255)
 
-#Import resources
+"""
+///////////////////////////////////////////////////////////
+    IMPORT RESOURCES
+///////////////////////////////////////////////////////////
+"""
 game_folder = os.path.dirname(os.path.abspath(__file__))
 
 game_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/game.png'))
@@ -60,6 +64,12 @@ cred_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/credits_gl
 back = pg.image.load(os.path.join(game_folder,'resources/buttons/back.png'))
 back_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/back_glow.png'))
 
+"""
+///////////////////////////////////////////////////////////
+   QUANTUM ENGINE
+///////////////////////////////////////////////////////////
+"""
+
 #Circuit and initial state
 qc, state = inicioRandom()
 rqc = copy.deepcopy(qc)
@@ -78,12 +88,6 @@ def newCircuit():
 def reiniciarCicuito():
     global qc, rqc
     qc = copy.deepcopy(rqc)
-
-#Text render method
-def message_to_screen(screen,msg,color,position,size):
-    font = pg.font.SysFont(None, size)
-    text = font.render(msg,True,color)
-    screen.blit(text,position)
 
 class QTaco():
     def __init__(self, QTortilla):
@@ -197,6 +201,18 @@ class QTaco_builder():
         for QTaco in self.QTaco_list:
             QTaco.draw(screen)
 
+"""
+///////////////////////////////////////////////////////////
+   UTILITIES
+///////////////////////////////////////////////////////////
+"""
+
+#Text render method
+def message_to_screen(screen,msg,color,position,size):
+    font = pg.font.SysFont(None, size)
+    text = font.render(msg,True,color)
+    screen.blit(text,position)
+
 class Button():
     def __init__(self, image, effects, position, size, callback):
         self.image = image
@@ -236,6 +252,11 @@ class Button():
     def do_action(self, builder):
         builder.update(self.callback)
 
+"""
+///////////////////////////////////////////////////////////
+   GAME ENGINE
+///////////////////////////////////////////////////////////
+"""
 
 class Game(object):
     def __init__(self):
@@ -418,7 +439,11 @@ class Menu():
         elif callback == 'Credits':
             self.credits()
 
-
+"""
+///////////////////////////////////////////////////////////
+   RUN
+///////////////////////////////////////////////////////////
+"""
 def main():
     pg.init()
 
