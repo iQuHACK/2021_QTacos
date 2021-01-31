@@ -278,11 +278,11 @@ class Game(object):
 
         #Display score
         score_msg = "Score: " + str(SCORE)
-        message_to_screen(screen,score_msg,BLUE,(710,40),60)
+        message_to_screen(screen,score_msg,BLUE,(660,50),60)
 
         #Display order
         order_msg = state_objetivo_str
-        message_to_screen(screen,order_msg,BLACK,(40,40),60)
+        message_to_screen(screen,order_msg,BLACK,(40,40),40)
 
         #Display initial states
         state_msg1 = "q0:|{}>".format(state[1])
