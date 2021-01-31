@@ -7,7 +7,7 @@ from tools import *
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
 FPS = 60
-TIME_LIMIT = 6000
+TIME_LIMIT = 600
 MAX_INGREDIENTS = 6
 SCORE = 0
 CNOT_COUNT = 0
@@ -239,13 +239,17 @@ def message_to_screen(screen,msg,color,position,size):
     text = font.render(msg,True,color)
     screen.blit(text,position)
 
+def record_score(player_name):
+    print(SCORE)
+
 class InputBox:
 
     def __init__(self, x, y, w, h, text=''):
         self.rect = pg.Rect(x, y, w, h)
-        self.color = COLOR_INACTIVE
+        self.color = BLACK
+        self.COLOR_ACTIVE = BLUE
+        self.COLOR_INACTIVE = BLACK
         self.text = text
-        self.txt_surface = FONT.render(text, True, self.color)
         self.active = False
 
     def handle_event(self, event):
@@ -257,7 +261,7 @@ class InputBox:
             else:
                 self.active = False
             # Change the current color of the input box.
-            self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
+            self.color = self.COLOR_ACTIVE if self.active else self.COLOR_INACTIVE
         if event.type == pg.KEYDOWN:
             if self.active:
                 if event.key == pg.K_RETURN:
@@ -277,7 +281,7 @@ class InputBox:
 
     def draw(self, screen):
         # Blit the text.
-        screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
+        message_to_screen(screen,self.text, self.color,(self.rect.x+5, self.rect.y+5),50)
         # Blit the rect.
         pg.draw.rect(screen, self.color, self.rect, 2)
 
@@ -415,6 +419,10 @@ class Menu():
     def __init__(self, screen):
         self.screen = screen
         self.back_btn = Button(back,back_glow,(0,0),(50,50),"Back")
+        self.input_box1 = InputBox(100, 100, 140, 32)
+        self.input_boxes = []
+
+        self.input_boxes.append(self.input_box1)
 
         #Launch app
         self.main_menu()
@@ -440,6 +448,10 @@ class Menu():
                 for button in button_list:
                     if button.isOver(pos):
                         button.hover_effects()
+            
+            #Input boxes
+            for box in input_boxes:
+                box.handle_event(event)
 
 
     def main_menu(self):
@@ -488,6 +500,8 @@ class Menu():
             timer -= 1
             time_bar_width -= time_bar_speed
             if timer <= 0:
+                self.game_over()
+                record_score(player_name)
                 SCORE = 0
                 done = True
 
@@ -516,6 +530,30 @@ class Menu():
             #self.screen.blit(credits_bg,(0,0))
             for button in button_list:
                 button.draw(self.screen)
+
+            pg.display.flip()
+    
+    def game_over(self):
+        done = False
+
+        button_list = []
+        
+        button_list.append(self.back_btn)
+
+        while not done:
+            done = self.process_events(button_list)
+
+            #Display elements
+            self.screen.fill(WHITE)
+            #self.screen.blit(credits_bg,(0,0))
+            for button in button_list:
+                button.draw(self.screen)
+            for box in input_boxes:
+                    box.update()
+
+            self.screen.fill((30, 30, 30))
+            for box in input_boxes:
+                box.draw(screen)
 
             pg.display.flip()
 
