@@ -38,7 +38,7 @@ Since it's a time trial game, you will have 60 seconds to complete as much corre
 * Better graphics.
 * More dificulty modes.
 * More variation of ingredients (quantum gates).
-
+* Variable screen size and fullscreen implementation.
 
 ## instrucciones
 * algún detalle en la implementación ????
