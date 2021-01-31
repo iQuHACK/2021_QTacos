@@ -62,16 +62,22 @@ class QTaco():
 
         #Position of the QTortilla
         if QTortilla == 'Tortilla1':
-            self.position = (510,100)
+            self.x = 510
+            self.y = 100
         elif QTortilla == 'Tortilla2':
-            self.position = (390,285)
+            self.x = 390
+            self.y = 285
+            
         elif QTortilla == 'Tortilla3':
-            self.position = (620,290)
+            self.x = 620
+            self.y = 290
+
+        self.pos = (self.x + 30,self.y + 20)
 
     def draw(self,screen):
         #Call this method to draw the ingredients on the QTortilla
         for ingredient in self.ingredients_list:
-            screen.blit(ingredient.image, self.position)
+            screen.blit(ingredient.image, self.pos)
     
     def add_ingredient(self,ingredient):
         #Call this method to add an ingredient to the QTaco
