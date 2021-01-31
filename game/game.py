@@ -64,6 +64,7 @@ cred_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/credits_gl
 back = pg.image.load(os.path.join(game_folder,'resources/buttons/back.png'))
 back_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/back_glow.png'))
 
+songs = ['resources/music/acosta.ogg', 'resources/music/ramito.ogg']
 """
 ///////////////////////////////////////////////////////////
    QUANTUM ENGINE
@@ -396,6 +397,9 @@ class Menu():
     
 
     def game_rt(self):
+        global songs
+        song = random.choice(songs)
+        
         done = False
         clock = pg.time.Clock()
         timer = TIME_LIMIT
@@ -403,7 +407,7 @@ class Menu():
         time_bar_speed = SCREEN_WIDTH / TIME_LIMIT
         game = Game()
 
-        pg.mixer.music.load(os.path.join(game_folder,'resources/music/acosta.ogg'))
+        pg.mixer.music.load(os.path.join(game_folder,song))
         pg.mixer.music.play()
 
         global SCORE
