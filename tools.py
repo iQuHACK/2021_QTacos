@@ -40,7 +40,6 @@ def randomQuantumState():
 
     qc.barrier()
     qc.measure([0,1,2],[0,1,2])
-    qc.draw('mpl')
     
     simulator = Aer.get_backend('qasm_simulator')
     rqs = measuring(qc, backend=simulator)
