@@ -1,6 +1,5 @@
 import pygame as pg
 import random
-from tools import *
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
@@ -137,6 +136,8 @@ class QTaco_builder():
             self.queue = In_pasNOT
 
         if callback == 'Paper':
+            for QTaco in self.QTaco_list:
+                QTaco.ingredients_list = []
             """
             AQUÍ VA EL ALGORITMO DE MEDICIÓN
             """
