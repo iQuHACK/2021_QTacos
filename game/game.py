@@ -270,6 +270,16 @@ class Game(object):
         order_msg = "|001>"
         message_to_screen(screen,order_msg,BLACK,(40,40),60)
 
+        #Display initial states
+        state_msg1 = "|1>"
+        message_to_screen(screen,state_msg1,BLACK,(600,140),40)
+
+        state_msg2 = "|1>"
+        message_to_screen(screen,state_msg2,BLACK,(500,350),40)
+
+        state_msg3 = "|1>"
+        message_to_screen(screen,state_msg3,BLACK,(700,350),40)
+
         #Display timer bar
         pg.draw.rect(screen, RED,(0,0,time_bar_width,20))
 
