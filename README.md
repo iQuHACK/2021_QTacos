@@ -24,12 +24,18 @@ TaQu Fever is a single player arcade game with the following elements:
   * Z - Zilantro: is the Pauli Z gate applied to the quantum state.
   * CNOT - pasNOT: is the CNOT gate applied to the quantum state.
 * QTaco: final quantum state.
+* Countdown: ___ seconds the game can last.
+#### How to play the game?
+The player will 
 
 ## Demostrations
 
 ## ToDo
 
 ## Highlights
+
+## instrucciones
+* algún detalle en la implementación ????
 * a clear title for your project,
 * a short abstract,
 * the motivation/goals for your project,
