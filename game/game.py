@@ -13,13 +13,6 @@ BLACK   = (     0,  0,    0)
 RED     = (   255,  0,    0)
 BLUE    = (     0,  0,  255)
 
-#Ingredient - gate
-ing_gate = {"Deshebrada": "hadamard",
-            "Chicken": "x",
-            "Cebolla": "y",
-            "Cilantro": "z",
-            "Pastor": "cnot"}
-
 #Import resources
 background = pg.image.load('resources/images/background.jpg')
 
@@ -45,6 +38,7 @@ paper = pg.image.load('resources/images/paper.png')
 paper_glow = pg.image.load('resources/images/paper_glow.png')
 no_glow = pg.image.load('resources/images/no_glow.png')
 
+#Circuit and initial state
 qc, state = inicioRandom() 
 
 #Text render method
@@ -97,11 +91,11 @@ class ingredient():
 /////////////////////////////////////////////////////////////////
 """
 #Ingredient init
-In_desHebrada = ingredient(deshebrada, 'H')
-In_Xicken = ingredient(chicken, 'X')
-In_onYon = ingredient(cebolla, 'Y')
-In_Zilantro = ingredient(cilantro, 'Z')
-In_pasNOT = ingredient(pastor, 'CNOT')
+In_desHebrada = ingredient(deshebrada, 'hadamard')
+In_Xicken = ingredient(chicken, 'x')
+In_onYon = ingredient(cebolla, 'y')
+In_Zilantro = ingredient(cilantro, 'z')
+In_pasNOT = ingredient(pastor, 'cnot')
 
 class QTaco_builder():
     def __init__(self):
@@ -118,15 +112,17 @@ class QTaco_builder():
         if callback == 'Tortilla1':
             if self.queue != None:
                 self.QTaco_list[0].add_ingredient(self.queue)
-                
+                add_gate(qc,gate=self.queue.gate,channel=0)
                 self.queue == None
         elif callback == 'Tortilla2':
             if self.queue != None:
                 self.QTaco_list[1].add_ingredient(self.queue)
+                add_gate(qc,gate=self.queue.gate,channel=1)
                 self.queue == None
         elif callback == 'Tortilla3':
             if self.queue != None:
                 self.QTaco_list[2].add_ingredient(self.queue)
+                add_gate(qc,gate=self.queue.gate,channel=2)
                 self.queue == None
         
         if callback == 'Deshebrada':
@@ -144,6 +140,7 @@ class QTaco_builder():
             """
             AQUÍ VA EL ALGORITMO DE MEDICIÓN
             """
+        qc.draw('mpl')
     
     def draw(self,screen):
         #Call this method to draw the ingredients on the QTortilla
