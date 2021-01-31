@@ -33,11 +33,11 @@ Since it's a time trial game, you will have 60 seconds to complete as much corre
 ## Demostrations
 
 ## ToDo
-#### Things we wanna fix/implement but we didn't have enough time to do:
+#### Proposals for future work:
 * Better graphics.
 * More dificulty modes.
 * More variation of ingredients (quantum gates).
-## Highlights
+
 
 ## instrucciones
 * algún detalle en la implementación ????
