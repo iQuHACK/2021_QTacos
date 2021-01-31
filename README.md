@@ -26,6 +26,7 @@ TaQu Fever is a single player arcade game with the following elements:
   * CNOT - pasNOT: is the CNOT gate applied to the quantum state.
 * QTaco: final quantum state.
 * Countdown: 60 second time bar (adjustable).
+* Basket: allows to remove the ingredients from the taco.
 #### How to play the game?
 The player will start with 3 QTortillas in a plate. As we explained in the synopsis, each QTortilla has an initial quantum random state, which the user can see. The player will be recieving orders from the customers, that indicate the final state they want to have (the QTaco represented as a quantum state). The user has to build the QTacos according to the specification the customer asks for, and obtain the expected quantum state of the QTaco. Each ingredient applies a different gate to the quantum state. Once you put an ingredient to the taco, you cannot erase it. You win a point whenever you get the correct QTaco.
 Since it's a time trial game, you will have 60 seconds to complete as much correct QTacos as you can (you can also set the time limit).
