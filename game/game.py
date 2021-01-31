@@ -215,6 +215,48 @@ def message_to_screen(screen,msg,color,position,size):
     text = font.render(msg,True,color)
     screen.blit(text,position)
 
+class InputBox:
+
+    def __init__(self, x, y, w, h, text=''):
+        self.rect = pg.Rect(x, y, w, h)
+        self.color = COLOR_INACTIVE
+        self.text = text
+        self.txt_surface = FONT.render(text, True, self.color)
+        self.active = False
+
+    def handle_event(self, event):
+        if event.type == pg.MOUSEBUTTONDOWN:
+            # If the user clicked on the input_box rect.
+            if self.rect.collidepoint(event.pos):
+                # Toggle the active variable.
+                self.active = not self.active
+            else:
+                self.active = False
+            # Change the current color of the input box.
+            self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
+        if event.type == pg.KEYDOWN:
+            if self.active:
+                if event.key == pg.K_RETURN:
+                    print(self.text)
+                    self.text = ''
+                elif event.key == pg.K_BACKSPACE:
+                    self.text = self.text[:-1]
+                else:
+                    self.text += event.unicode
+                # Re-render the text.
+                self.txt_surface = FONT.render(self.text, True, self.color)
+
+    def update(self):
+        # Resize the box if the text is too long.
+        width = max(200, self.txt_surface.get_width()+10)
+        self.rect.w = width
+
+    def draw(self, screen):
+        # Blit the text.
+        screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
+        # Blit the rect.
+        pg.draw.rect(screen, self.color, self.rect, 2)
+
 class Button():
     def __init__(self, image, effects, position, size, callback):
         self.image = image
@@ -381,11 +423,11 @@ class Menu():
 
         button_list = []
 
-        button_list.append(Button(play, play_glow, (-15,100),(150,50),'Play'))
-        button_list.append(Button(leaderboard, leaderboard_glow, (0,200),(150,50),'Leaderboard'))
-        button_list.append(Button(howtoplay, howtoplay_glow, (0,300),(50,50),'How to Play'))
-        button_list.append(Button(options, options_glow, (0,350),(150,50),'Options'))
-        button_list.append(Button(cred, cred_glow, (400,500),(150,50),'Credits'))
+        button_list.append(Button(play, play_glow, (-15,100),(200,100),'Play'))
+        button_list.append(Button(leaderboard, leaderboard_glow, (0,200),(350,80),'Leaderboard'))
+        button_list.append(Button(howtoplay, howtoplay_glow, (0,280),(300,65),'How to Play'))
+        button_list.append(Button(options, options_glow, (0,350),(200,65),'Options'))
+        button_list.append(Button(cred, cred_glow, (440,530),(150,80),'Credits'))
 
         while not done:
             done = self.process_events(button_list)
