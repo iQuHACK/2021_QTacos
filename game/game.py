@@ -502,7 +502,7 @@ class Menu():
             timer -= 1
             time_bar_width -= time_bar_speed
             if timer <= 0:
-                self.game_over()
+                player_name = self.game_over()
                 record_score(player_name)
                 SCORE = 0
                 done = True
@@ -582,6 +582,7 @@ class Menu():
     
     def game_over(self):
         done = False
+        player_name = ""
 
         button_list = []
         
@@ -603,6 +604,8 @@ class Menu():
                 box.draw(self.screen)
 
             pg.display.flip()
+        
+        return player_name
 
     def menu_open(self,button):
         callback = button.callback
