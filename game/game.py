@@ -11,16 +11,21 @@ SCORE = 0
 
 #Basic colors
 BLACK   = (     0,  0,    0)
+WHITE   = (   255,255,  255)
 RED     = (   255,  0,    0)
 BLUE    = (     0,  0,  255)
 
 #Import resources
 game_folder = os.path.dirname(os.path.abspath(__file__))
-background = pg.image.load(os.path.join(game_folder,'resources/images/background.jpg'))
+image_list = []
+background = pg.image.load(os.path.join(game_folder,'resources/backgrounds/background.jpg'))
+image_list.append(background)
 
 plate = pg.image.load(os.path.join(game_folder,'resources/images/plate.png'))
+image_list.append(plate)
 
 tortilla = pg.image.load(os.path.join(game_folder,'resources/images/tortilla.png'))
+image_list.append(tortilla)
 
 deshebrada = pg.image.load(os.path.join(game_folder,'resources/images/deshebrada.png'))
 trompo = pg.image.load(os.path.join(game_folder,'resources/images/trompo.png'))
@@ -28,6 +33,7 @@ pastor = pg.image.load(os.path.join(game_folder,'resources/images/pastor.png'))
 cilantro = pg.image.load(os.path.join(game_folder,'resources/images/cilantro.png'))
 cebolla = pg.image.load(os.path.join(game_folder,'resources/images/cebolla.png'))
 chicken = pg.image.load(os.path.join(game_folder,'resources/images/chicken.png'))
+image_list.extend([deshebrada,trompo,pastor,cilantro,cebolla,chicken])
 
 tortilla_glow = pg.image.load(os.path.join(game_folder,'resources/images/tortilla_glow.png'))
 deshebrada_glow = pg.image.load(os.path.join(game_folder,'resources/images/deshebrada_glow.png'))
@@ -35,12 +41,26 @@ trompo_glow = pg.image.load(os.path.join(game_folder,'resources/images/trompo_gl
 cilantro_glow = pg.image.load(os.path.join(game_folder,'resources/images/cilantro_glow.png'))
 cebolla_glow = pg.image.load(os.path.join(game_folder,'resources/images/cebolla_glow.png'))
 chicken_glow = pg.image.load(os.path.join(game_folder,'resources/images/chicken_glow.png'))
+image_list.extend([deshebrada_glow,trompo_glow,cilantro_glow,cebolla_glow,chicken_glow])
 
 paper = pg.image.load(os.path.join(game_folder,'resources/images/paper.png'))
 paper_glow = pg.image.load(os.path.join(game_folder,'resources/images/paper_glow.png'))
 canasta = pg.image.load(os.path.join(game_folder,'resources/images/canasta.png'))
 canasta_glow = pg.image.load(os.path.join(game_folder,'resources/images/canasta_glow.png'))
 no_glow = pg.image.load(os.path.join(game_folder,'resources/images/no_glow.png'))
+image_list.extend([paper,paper_glow,canasta,canasta_glow,no_glow])
+
+play = pg.image.load(os.path.join(game_folder,'resources/buttons/play.png'))
+play_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/play_glow.png'))
+leaderboard = pg.image.load(os.path.join(game_folder,'resources/buttons/leaderboard.png'))
+leaderboard_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/leaderboard_glow.png'))
+howtoplay = pg.image.load(os.path.join(game_folder,'resources/buttons/howtoplay.png'))
+howtoplay_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/howtoplay_glow.png'))
+options = pg.image.load(os.path.join(game_folder,'resources/buttons/options.png'))
+options_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/options_glow.png'))
+cred = pg.image.load(os.path.join(game_folder,'resources/buttons/credits.png'))
+cred_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/credits_glow.png'))
+image_list.extend([play,play_glow,leaderboard,leaderboard_glow,howtoplay,howtoplay_glow,options,options_glow,cred,cred_glow])
 
 #Circuit and initial state
 qc, state = inicioRandom()
@@ -175,7 +195,7 @@ class QTaco_builder():
 /////////////////////////////////////////////////////////////////
 """
 
-class button():
+class Button():
     def __init__(self, image, effects, position, size, callback):
         self.image = image
         self.effects = effects
@@ -214,6 +234,7 @@ class button():
     def do_action(self, builder):
         builder.update(self.callback)
 
+
 class Game(object):
     def __init__(self):
         global SCORE
@@ -223,16 +244,16 @@ class Game(object):
         self.button_list = []
 
         #Button init
-        self.button_list.append(button(tortilla, tortilla_glow, (510,100),(180,180),'Tortilla1'))
-        self.button_list.append(button(tortilla, tortilla_glow, (390,285),(180,180),'Tortilla2'))
-        self.button_list.append(button(tortilla, tortilla_glow, (620,290),(180,180),'Tortilla3'))
-        self.button_list.append(button(trompo, trompo_glow, (0,310),(160,250),'Pastor'))
-        self.button_list.append(button(deshebrada, deshebrada_glow, (230,410),(150,150),'Deshebrada'))
-        self.button_list.append(button(chicken, chicken_glow, (180,260),(140,140),'Chicken'))
-        self.button_list.append(button(cilantro, cilantro_glow, (0,200),(155,80),'Cilantro'))
-        self.button_list.append(button(cebolla, cebolla_glow, (180,130),(120,100),'Cebolla'))
-        self.button_list.append(button(paper, paper_glow, (10,-10),(250,120),'Paper'))
-        self.button_list.append(button(canasta, canasta_glow, (320, 30),(95,80),'Canasta'))
+        self.button_list.append(Button(tortilla, tortilla_glow, (510,100),(180,180),'Tortilla1'))
+        self.button_list.append(Button(tortilla, tortilla_glow, (390,285),(180,180),'Tortilla2'))
+        self.button_list.append(Button(tortilla, tortilla_glow, (620,290),(180,180),'Tortilla3'))
+        self.button_list.append(Button(trompo, trompo_glow, (0,310),(160,250),'Pastor'))
+        self.button_list.append(Button(deshebrada, deshebrada_glow, (230,410),(150,150),'Deshebrada'))
+        self.button_list.append(Button(chicken, chicken_glow, (180,260),(140,140),'Chicken'))
+        self.button_list.append(Button(cilantro, cilantro_glow, (0,200),(155,80),'Cilantro'))
+        self.button_list.append(Button(cebolla, cebolla_glow, (180,130),(120,100),'Cebolla'))
+        self.button_list.append(Button(paper, paper_glow, (10,-10),(250,120),'Paper'))
+        self.button_list.append(Button(canasta, canasta_glow, (320, 30),(95,80),'Canasta'))
 
 
     def process_events(self):
@@ -299,6 +320,83 @@ class Game(object):
 
         pg.display.flip()
 
+class Menu():
+    def __init__(self, screen):
+        self.screen = screen
+        self.main_menu()
+
+    def process_events(self,button_list):
+        pos = pg.mouse.get_pos()
+
+        for event in pg.event.get():
+            #Quit game
+            if event.type == pg.QUIT:
+                return True
+            
+            #Click on screen
+            #(Button implementation)
+            if event.type == pg.MOUSEBUTTONDOWN:
+                for button in button_list:
+                    if button.isOver(pos):
+                        self.menu_open(button)
+            
+            #Hover effects trigger
+            if event.type == pg.MOUSEMOTION:
+                for button in button_list:
+                    if button.isOver(pos):
+                        button.hover_effects()
+
+    def main_menu(self):
+        done = False
+
+        button_list = []
+
+        button_list.append(Button(play, play_glow, (10,100),(180,180),'Play'))
+        button_list.append(Button(leaderboard, leaderboard_glow, (10,200),(180,180),'Leaderboard'))
+        button_list.append(Button(howtoplay, howtoplay_glow, (10,300),(180,180),'How to Play'))
+        button_list.append(Button(options, options_glow, (10,350),(180,180),'Options'))
+        button_list.append(Button(cred, cred_glow, (510,350),(180,180),'Credits'))
+
+        while not done:
+            done = self.process_events(button_list)
+            
+            #Display elements
+            self.screen.fill(BLUE)
+            for button in button_list:
+                button.draw(self.screen)
+
+            pg.display.flip()
+    
+    def game_rt(self):
+        done = False
+        clock = pg.time.Clock()
+        timer = TIME_LIMIT
+        time_bar_width = SCREEN_WIDTH
+        time_bar_speed = SCREEN_WIDTH / TIME_LIMIT
+        game = Game()
+
+        while not done:
+            done = game.process_events()
+            game.run_logic
+            game.display_frame(self.screen, time_bar_width)
+            clock.tick(FPS)
+            timer -= 1
+            time_bar_width -= time_bar_speed
+            if timer <= 0:
+                done = True
+
+    def menu_open(self,button):
+        callback = button.callback
+        if callback == 'Play':
+            self.game_rt()
+        elif callback == 'Leaderboard':
+            self.game_rt()
+        elif callback == 'How to Play':
+            self.game_rt()
+        elif callback == 'Options':
+            self.game_rt()
+        elif callback == 'Credits':
+            self.game_rt()
 
 
 def main():
@@ -306,22 +404,8 @@ def main():
 
     screen = pg.display.set_mode([SCREEN_WIDTH,SCREEN_HEIGHT])
 
-    done = False
-    clock = pg.time.Clock()
-    timer = TIME_LIMIT
-    time_bar_width = SCREEN_WIDTH
-    time_bar_speed = SCREEN_WIDTH / TIME_LIMIT
-    game = Game()
+    menu = Menu(screen)
 
-    while not done:
-        done = game.process_events()
-        game.run_logic
-        game.display_frame(screen, time_bar_width)
-        clock.tick(FPS)
-        timer -= 1
-        time_bar_width -= time_bar_speed
-        if timer <= 0:
-            done = True
     pg.quit()
 
 
