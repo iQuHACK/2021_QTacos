@@ -26,12 +26,11 @@ TaQu Fever is a single player arcade game with the following elements:
 * QTaco: final quantum state.
 * Countdown: ___ seconds the game can last.
 #### How to play the game?
-The player will 
+The player will start with 3 QTortillas in a plate. As we explained in the synopsis, each QTortilla has an initial quantum random state, 
 
 ## Demostrations
 
 ## ToDo
-* Variable screen size and fullscreen implementation
 
 ## Highlights
 
