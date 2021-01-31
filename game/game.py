@@ -28,6 +28,11 @@ cilantro_glow = pg.image.load('resources/images/cilantro_glow.png')
 cebolla_glow = pg.image.load('resources/images/cebolla_glow.png')
 chicken_glow = pg.image.load('resources/images/chicken_glow.png')
 
+#Text render method
+def message_to_screen(screen,msg,color,position,size):
+    font = pg.font.SysFont(None, size)
+    text = font.render(msg,True,color)
+    screen.blit(text,position)
 
 
 class button():
@@ -66,14 +71,25 @@ class button():
     def hover_effects(self):
         self.do_effects = True
     
+    """
+    /////////////////////////////////////////////////////////////////////
+    AQUÍ VAN LAS ACCIONES QUE REALIZA CADA BOTÓN
+
+    FALTA IMPLEMENTAR LA 'SUMA' DE INGREDIENTES SOBRE LA TORTILLA
+    """
     def do_action(self):
         print(self.callback)
 
+    """
+    /////////////////////////////////////////////////////////////////////
+
+    """
 
 class Game(object):
     def __init__(self):
         self.score = 0
 
+        #List with every game element (buttons)
         self.button_list = []
 
         #Button init
@@ -102,6 +118,7 @@ class Game(object):
                     if button.isOver(pos):
                         button.do_action()
             
+            #Hover effects trigger
             if event.type == pg.MOUSEMOTION:
                 for button in self.button_list:
                     if button.isOver(pos):
@@ -111,8 +128,20 @@ class Game(object):
 
         return False
 
+        """
+    /////////////////////////////////////////////////////////////////////
+    AQUÍ VAN TODAS LAS FUNCIONES LOGICAS DEL JUEGO
+
+    AQUÍ DEBE EJECUTARSE LA 'SUMA' DE INGREDIENTES
+    """
     def run_logic(self):
         pass
+
+    """
+    /////////////////////////////////////////////////////////////////////
+
+    """
+    
 
     def display_frame(self, screen, time_bar_width):
         screen.fill(BLACK)
@@ -120,9 +149,13 @@ class Game(object):
         screen.blit(plate,(370,90))
         pg.draw.rect(screen, RED,(0,0,time_bar_width,20))
 
-        #Display elements
+        #Display game elements
         for button in self.button_list:
             button.draw(screen)
+
+        #Display Score
+        score_msg = "Score: " + str(self.score)
+        message_to_screen(screen,score_msg,BLUE,(710,40),60)
 
         pg.display.flip()
 
