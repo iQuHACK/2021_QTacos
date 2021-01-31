@@ -371,6 +371,10 @@ class Menu():
         time_bar_speed = SCREEN_WIDTH / TIME_LIMIT
         game = Game()
 
+        pg.mixer.music.load('resources/music/acosta.ogg')
+        pg.mixer.music.play()
+
+
         while not done:
             done = game.process_events()
             game.run_logic
