@@ -1,5 +1,7 @@
 import pygame as pg
 import random,os
+import copy
+from qiskit import QuantumCircuit, Aer, execute
 from tools import *
 
 SCREEN_WIDTH = 900
@@ -44,15 +46,22 @@ no_glow = pg.image.load(os.path.join(game_folder,'resources/images/no_glow.png')
 
 #Circuit and initial state
 qc, state = inicioRandom()
+rqc = copy.deepcopy(qc)
 state_objetivo = randomQuantumState()
 state_objetivo_str = dictostr(state_objetivo)
 
+
 def newCircuit():
-    global qc, state, state_objetivo, state_objetivo_str
+    global qc, state, state_objetivo, state_objetivo_str, rqc
     
     qc, state = inicioRandom()
+    rqc = copy.deepcopy(qc)
     state_objetivo = randomQuantumState()
     state_objetivo_str = dictostr(state_objetivo)
+    
+def reiniciarCicuito():
+    global qc, rqc
+    qc = copy.deepcopy(rqc)
 
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
@@ -173,6 +182,7 @@ class QTaco_builder():
         elif callback == 'Canasta':
             for QTaco in self.QTaco_list:
                 QTaco.ingredients_list = []
+            reiniciarCicuito()
     
     def draw(self,screen):
         #Call this method to draw the ingredients on the QTortilla
