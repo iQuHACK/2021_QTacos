@@ -1,46 +1,10 @@
-import pygame as pg, random
-
 import pygame as pg
 import random
- 
-class Ball:
-    def __init__(self, screen_rect):
-        self.screen_rect = screen_rect
-        self.image = pg.Surface([50,50]).convert()
-        self.image.fill((255,0,0))
-        self.rect = self.image.get_rect()
-         
-        self.speed_init = 10
-        self.speed = self.speed_init
-        self.set_ball()
-         
-    def set_ball(self):
-        self.vel = [random.choice([-1,1]), 0]
-        self.rect.center = self.screen_rect.center
-        self.true_pos = list(self.rect.center)
-        self.speed = self.speed_init
-         
-    def move(self):
-        if self.rect.left <= 0:
-            self.vel[0] *= -1
-        elif self.rect.right >= self.screen_rect.right:
-            self.vel[0] *= -1
-        self.true_pos[0] += self.vel[0] * self.speed
-        #self.true_pos[1] += self.vel[1] * self.speed
-        self.rect.center = self.true_pos
-         
-    def update(self, screen_rect):
-        self.screen_rect = screen_rect
-        self.move()
-         
-    def draw(self, surf):
-        surf.blit(self.image, self.rect)
-         
- 
- 
+
+
 class Control:
     def __init__(self):
-        self.resolutions = [(300,200), (600,400),(800, 600), (928, 696)]
+        self.resolutions = [(300,200), (600,400),(800, 600), (928, 696),(1080,720)]
         self.render_size = self.resolutions[-1] #largest
         self.screen = pg.display.set_mode(self.resolutions[-1], pg.RESIZABLE)
         self.screen_rect = self.screen.get_rect()
@@ -101,23 +65,34 @@ class Control:
             self.clock.tick(self.fps)
 
 class button():
-    def __init__(self, color, x,y,width,height, text=''):
+    def __init__(self, color, x,y,width,height, text='', callback):
         self.color = color
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.text = text
+        self.callback = callback
+    
+    def __init__(self, image, position, callback):
+        self.image = image
+        self.rect = image.get_rect(topleft=position)
+        self.callback = callback
+ 
+    def on_click(self, event):
+        if event.button == 1:
+            if self.rect.collidepoint(event.pos):
+                self.callback(self)
 
     def draw(self,win,outline=None):
         #Call this method to draw the button on the screen
         if outline:
-            pygame.draw.rect(win, outline, (self.x-2,self.y-2,self.width+4,self.height+4),0)
+            pg.draw.rect(win, outline, (self.x-2,self.y-2,self.width+4,self.height+4),0)
             
-        pygame.draw.rect(win, self.color, (self.x,self.y,self.width,self.height),0)
+        pg.draw.rect(win, self.color, (self.x,self.y,self.width,self.height),0)
         
         if self.text != '':
-            font = pygame.font.SysFont('comicsans', 60)
+            font = pg.font.SysFont('comicsans', 60)
             text = font.render(self.text, 1, (0,0,0))
             win.blit(text, (self.x + (self.width/2 - text.get_width()/2), self.y + (self.height/2 - text.get_height()/2)))
 
@@ -126,8 +101,9 @@ class button():
         if pos[0] > self.x and pos[0] < self.x + self.width:
             if pos[1] > self.y and pos[1] < self.y + self.height:
                 return True
-            
-        return False
+
+    
+ 
 
 class Utilities:
 	def colorize(image, newColor):
@@ -146,9 +122,39 @@ class Utilities:
 	    image.fill(newColor[0:3] + (0,), None, pg.BLEND_RGBA_ADD)
 	 
 	    return image
- 
+
+    def image(image_name):
+        return pygame.image.load(image_name)
+
+
+
+
+class Main_game:
+    #Import resources
+    Background = image('bg.jpg')
+    
+    #Window init
+    win = pg.display.set_mode((800,600))
+    win.fill((0,0,0))
+    win.blit(Background,(0,0))
+
+    def game_loop(self):
+        while not self.done:
+            self.event_loop()
+
+    def event_loop(self):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                self.done = True
+            elif event.type == pg.VIDEORESIZE:
+                self.on_resize(event.size)
+                #pg.event.clear(pg.VIDEORESIZE)
+    
+
+
+
 pg.init()
-app = Control()
+app = Main_game:
 app.game_loop()
 pg.quit()
 
