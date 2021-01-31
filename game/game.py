@@ -7,7 +7,7 @@ from tools import *
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
 FPS = 60
-TIME_LIMIT = 6000
+TIME_LIMIT = 600
 MAX_INGREDIENTS = 6
 SCORE = 0
 CNOT_COUNT = 0
@@ -250,7 +250,6 @@ class InputBox:
         self.COLOR_ACTIVE = BLUE
         self.COLOR_INACTIVE = BLACK
         self.text = text
-        self.txt_surface = FONT.render(text, True, self.color)
         self.active = False
 
     def handle_event(self, event):
