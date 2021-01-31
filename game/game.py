@@ -604,6 +604,9 @@ class Menu():
                 box.draw(self.screen)
                 player_name = box.text
 
+            message_to_screen(self.screen,"GAME OVER",RED,(300,50),80)
+            message_to_screen(self.screen,"SCORE: " + str(SCORE),WHITE,(300,500),80)
+
             pg.display.flip()
 
         
