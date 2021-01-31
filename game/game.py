@@ -1,6 +1,5 @@
 import pygame as pg
 import random
-from tools import *
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
@@ -12,13 +11,6 @@ MAX_INGREDIENTS = 6
 BLACK   = (     0,  0,    0)
 RED     = (   255,  0,    0)
 BLUE    = (     0,  0,  255)
-
-#Ingredient - gate
-ing_gate = {"Deshebrada": "hadamard",
-            "Chicken": "x",
-            "Cebolla": "y",
-            "Cilantro": "z",
-            "Pastor": "cnot"}
 
 #Import resources
 background = pg.image.load('resources/images/background.jpg')
@@ -45,7 +37,6 @@ paper = pg.image.load('resources/images/paper.png')
 paper_glow = pg.image.load('resources/images/paper_glow.png')
 no_glow = pg.image.load('resources/images/no_glow.png')
 
-qc, state = inicioRandom() 
 
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
@@ -118,7 +109,6 @@ class QTaco_builder():
         if callback == 'Tortilla1':
             if self.queue != None:
                 self.QTaco_list[0].add_ingredient(self.queue)
-                
                 self.queue == None
         elif callback == 'Tortilla2':
             if self.queue != None:
@@ -141,6 +131,8 @@ class QTaco_builder():
             self.queue = In_pasNOT
 
         if callback == 'Paper':
+            for QTaco in self.QTaco_list:
+                QTaco.ingredients_list = []
             """
             AQUÍ VA EL ALGORITMO DE MEDICIÓN
             """
