@@ -1,3 +1,4 @@
+#La aplicasión esta en la rama prueba
 # TaQu Fever
 *Yareli Aguilar, Alejandro Martínez, Diego Pérez, Isaac Pimentel, Saúl Puente.*
 ## Synopsis
