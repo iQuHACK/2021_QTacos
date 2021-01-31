@@ -193,20 +193,9 @@ class button():
 
     def hover_effects(self):
         self.do_effects = True
-    
-    """
-    /////////////////////////////////////////////////////////////////////
-    AQUÍ VAN LAS ACCIONES QUE REALIZA CADA BOTÓN
 
-    FALTA IMPLEMENTAR LA 'SUMA' DE INGREDIENTES SOBRE LA TORTILLA
-    """
     def do_action(self, builder):
         builder.update(self.callback)
-
-    """
-    /////////////////////////////////////////////////////////////////////
-
-    """
 
 class Game(object):
     def __init__(self):
@@ -226,7 +215,7 @@ class Game(object):
         self.button_list.append(button(cilantro, cilantro_glow, (0,200),(155,80),'Cilantro'))
         self.button_list.append(button(cebolla, cebolla_glow, (180,130),(120,100),'Cebolla'))
         self.button_list.append(button(paper, paper_glow, (10,-10),(250,120),'Paper'))
-        self.button_list.append(button(canasta, canasta_glow, (320, 30),(100,80),'Canasta'))
+        self.button_list.append(button(canasta, canasta_glow, (320, 30),(95,80),'Canasta'))
 
 
     def process_events(self):
@@ -254,20 +243,8 @@ class Game(object):
 
         return False
 
-        """
-    /////////////////////////////////////////////////////////////////////
-    AQUÍ VAN TODAS LAS FUNCIONES LOGICAS DEL JUEGO
-
-    AQUÍ DEBE EJECUTARSE LA 'SUMA' DE INGREDIENTES
-    """
     def run_logic(self):
         pass
-
-    """
-    /////////////////////////////////////////////////////////////////////
-
-    """
-    
 
     def display_frame(self, screen, time_bar_width):
         #Background elements
