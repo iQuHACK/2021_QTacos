@@ -18,8 +18,8 @@ BLUE    = (     0,  0,  255)
 #Import resources
 game_folder = os.path.dirname(os.path.abspath(__file__))
 
-game_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/game.jpg'))
-main_menu_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/main_menu.jpg'))
+game_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/game.png'))
+main_menu_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/main_menu.png'))
 
 plate = pg.image.load(os.path.join(game_folder,'resources/images/plate.png'))
 
@@ -355,7 +355,7 @@ class Menu():
             
             #Display elements
             self.screen.fill(BLUE)
-            screen.blit(main_menu_bg,(0,0))
+            self.screen.blit(main_menu_bg,(0,0))
             for button in button_list:
                 button.draw(self.screen)
 
