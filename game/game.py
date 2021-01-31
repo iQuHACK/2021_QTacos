@@ -1,5 +1,7 @@
 import pygame as pg
 import random,os
+import copy
+from qiskit import QuantumCircuit, Aer, execute
 from tools import *
 
 SCREEN_WIDTH = 900
@@ -17,15 +19,13 @@ BLUE    = (     0,  0,  255)
 
 #Import resources
 game_folder = os.path.dirname(os.path.abspath(__file__))
-image_list = []
-game_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/game.jpg'))
-image_list.append(game_bg)
+
+game_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/game.png'))
+main_menu_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/main_menu.png'))
 
 plate = pg.image.load(os.path.join(game_folder,'resources/images/plate.png'))
-image_list.append(plate)
 
 tortilla = pg.image.load(os.path.join(game_folder,'resources/images/tortilla.png'))
-image_list.append(tortilla)
 
 deshebrada = pg.image.load(os.path.join(game_folder,'resources/images/deshebrada.png'))
 trompo = pg.image.load(os.path.join(game_folder,'resources/images/trompo.png'))
@@ -33,7 +33,6 @@ pastor = pg.image.load(os.path.join(game_folder,'resources/images/pastor.png'))
 cilantro = pg.image.load(os.path.join(game_folder,'resources/images/cilantro.png'))
 cebolla = pg.image.load(os.path.join(game_folder,'resources/images/cebolla.png'))
 chicken = pg.image.load(os.path.join(game_folder,'resources/images/chicken.png'))
-image_list.extend([deshebrada,trompo,pastor,cilantro,cebolla,chicken])
 
 tortilla_glow = pg.image.load(os.path.join(game_folder,'resources/images/tortilla_glow.png'))
 deshebrada_glow = pg.image.load(os.path.join(game_folder,'resources/images/deshebrada_glow.png'))
@@ -41,14 +40,12 @@ trompo_glow = pg.image.load(os.path.join(game_folder,'resources/images/trompo_gl
 cilantro_glow = pg.image.load(os.path.join(game_folder,'resources/images/cilantro_glow.png'))
 cebolla_glow = pg.image.load(os.path.join(game_folder,'resources/images/cebolla_glow.png'))
 chicken_glow = pg.image.load(os.path.join(game_folder,'resources/images/chicken_glow.png'))
-image_list.extend([deshebrada_glow,trompo_glow,cilantro_glow,cebolla_glow,chicken_glow])
 
 paper = pg.image.load(os.path.join(game_folder,'resources/images/paper.png'))
 paper_glow = pg.image.load(os.path.join(game_folder,'resources/images/paper_glow.png'))
 canasta = pg.image.load(os.path.join(game_folder,'resources/images/canasta.png'))
 canasta_glow = pg.image.load(os.path.join(game_folder,'resources/images/canasta_glow.png'))
 no_glow = pg.image.load(os.path.join(game_folder,'resources/images/no_glow.png'))
-image_list.extend([paper,paper_glow,canasta,canasta_glow,no_glow])
 
 play = pg.image.load(os.path.join(game_folder,'resources/buttons/play.png'))
 play_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/play_glow.png'))
@@ -60,19 +57,27 @@ options = pg.image.load(os.path.join(game_folder,'resources/buttons/options.png'
 options_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/options_glow.png'))
 cred = pg.image.load(os.path.join(game_folder,'resources/buttons/credits.png'))
 cred_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/credits_glow.png'))
-image_list.extend([play,play_glow,leaderboard,leaderboard_glow,howtoplay,howtoplay_glow,options,options_glow,cred,cred_glow])
+back = pg.image.load(os.path.join(game_folder,'resources/buttons/back.png'))
+back_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/back_glow.png'))
 
 #Circuit and initial state
 qc, state = inicioRandom()
+rqc = copy.deepcopy(qc)
 state_objetivo = randomQuantumState()
 state_objetivo_str = dictostr(state_objetivo)
 
+
 def newCircuit():
-    global qc, state, state_objetivo, state_objetivo_str
+    global qc, state, state_objetivo, state_objetivo_str, rqc
     
     qc, state = inicioRandom()
+    rqc = copy.deepcopy(qc)
     state_objetivo = randomQuantumState()
     state_objetivo_str = dictostr(state_objetivo)
+    
+def reiniciarCicuito():
+    global qc, rqc
+    qc = copy.deepcopy(rqc)
 
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
@@ -185,6 +190,7 @@ class QTaco_builder():
         elif callback == 'Canasta':
             for QTaco in self.QTaco_list:
                 QTaco.ingredients_list = []
+            reiniciarCicuito()
     
     def draw(self,screen):
         #Call this method to draw the ingredients on the QTortilla
@@ -320,6 +326,8 @@ class Menu():
     def __init__(self, screen):
         self.screen = screen
         self.main_menu()
+        self.back = Button(back,back_glow,(0,0),(50,50),"Back")
+
 
     def process_events(self,button_list):
         pos = pg.mouse.get_pos()
@@ -342,27 +350,30 @@ class Menu():
                     if button.isOver(pos):
                         button.hover_effects()
 
+
     def main_menu(self):
         done = False
 
         button_list = []
 
-        button_list.append(Button(play, play_glow, (10,100),(180,180),'Play'))
-        button_list.append(Button(leaderboard, leaderboard_glow, (10,200),(180,180),'Leaderboard'))
-        button_list.append(Button(howtoplay, howtoplay_glow, (10,300),(180,180),'How to Play'))
-        button_list.append(Button(options, options_glow, (10,350),(180,180),'Options'))
-        button_list.append(Button(cred, cred_glow, (510,350),(180,180),'Credits'))
+        button_list.append(Button(play, play_glow, (-15,100),(150,50),'Play'))
+        button_list.append(Button(leaderboard, leaderboard_glow, (0,200),(150,50),'Leaderboard'))
+        button_list.append(Button(howtoplay, howtoplay_glow, (0,300),(50,50),'How to Play'))
+        button_list.append(Button(options, options_glow, (0,350),(150,50),'Options'))
+        button_list.append(Button(cred, cred_glow, (400,500),(150,50),'Credits'))
 
         while not done:
             done = self.process_events(button_list)
             
             #Display elements
             self.screen.fill(BLUE)
+            self.screen.blit(main_menu_bg,(0,0))
             for button in button_list:
                 button.draw(self.screen)
 
             pg.display.flip()
     
+
     def game_rt(self):
         done = False
         clock = pg.time.Clock()
@@ -384,6 +395,19 @@ class Menu():
             time_bar_width -= time_bar_speed
             if timer <= 0:
                 done = True
+
+
+    def leaderboard(self):
+        pass
+
+    def howtoplay(self):
+        pass
+
+    def options(self):
+        pass
+
+    def credits(self):
+        pass
 
     def menu_open(self,button):
         callback = button.callback
