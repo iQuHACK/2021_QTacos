@@ -66,3 +66,13 @@ def similarity(dic1, dic2, err=0.01):
         return True, distance
     else:
         return False, distance
+    
+def inicioRandom():
+    base_states = [f"{a}"+f"{b}"+f"{c}" for a in range(2) for b in range(2) for c in range(2)]
+    base = random.choice(base_states)
+    qc = QuantumCircuit(3,3)
+    for i in range(0,3):
+        if base[i] == "1":
+            qc.x(i)
+    base = "|" + base + ">"
+    return qc,base

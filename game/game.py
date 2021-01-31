@@ -33,6 +33,7 @@ cebolla_glow = pg.image.load('resources/images/cebolla_glow.png')
 chicken_glow = pg.image.load('resources/images/chicken_glow.png')
 
 paper = pg.image.load('resources/images/paper.png')
+paper_glow = pg.image.load('resources/images/paper_glow.png')
 no_glow = pg.image.load('resources/images/no_glow.png')
 
 
@@ -41,6 +42,35 @@ def message_to_screen(screen,msg,color,position,size):
     font = pg.font.SysFont(None, size)
     text = font.render(msg,True,color)
     screen.blit(text,position)
+
+class QTaco():
+    def __init__(self, QTortilla):
+        self.QTortilla = QTortilla
+
+        #List with every ingredient in the QTaco
+        self.ingredients_list = []
+
+        #Position of the QTortilla
+        if QTortilla == 'Tortilla1':
+            self.position = (510,100)
+        elif QTortilla == 'Tortilla2':
+            self.position = (390,285)
+        elif QTortilla == 'Tortilla3':
+            self.position = (620,290)
+
+    def draw(self,screen):
+        #Call this method to draw the ingredients on the QTortilla
+        for ingredient in ingredients_list:
+            screen.blit(ingredient.image(),self.position)
+    
+    def add_ingredient(self,ingredient):
+        #Call this method to add an ingredient to the QTaco
+        self.ingredients_list.append(ingredient)
+
+class ingredient():
+    def __init__(self, image, gate):
+        self.image = image
+        self.gate = gate
 
 
 class button():
@@ -104,12 +134,27 @@ class Game(object):
         self.button_list.append(button(tortilla, tortilla_glow, (510,100),(180,180),'Tortilla1'))
         self.button_list.append(button(tortilla, tortilla_glow, (390,285),(180,180),'Tortilla2'))
         self.button_list.append(button(tortilla, tortilla_glow, (620,290),(180,180),'Tortilla3'))
-        self.button_list.append(button(trompo, trompo_glow, (0,310),(200,280),'Trompo'))
+        self.button_list.append(button(trompo, trompo_glow, (0,310),(160,250),'Pastor'))
         self.button_list.append(button(deshebrada, deshebrada_glow, (230,410),(150,150),'Deshebrada'))
         self.button_list.append(button(chicken, chicken_glow, (180,260),(140,140),'Chicken'))
         self.button_list.append(button(cilantro, cilantro_glow, (0,200),(155,80),'Cilantro'))
         self.button_list.append(button(cebolla, cebolla_glow, (180,130),(120,100),'Cebolla'))
-        self.button_list.append(button(paper, deshebrada_glow, (10,-10),(250,120),'Paper'))
+        self.button_list.append(button(paper, paper_glow, (10,-10),(250,120),'Paper'))
+
+        #Ingredient init
+        In_desHebrada = ingredient(deshebrada, 'H')
+        In_Xicken = ingredient(chicken, 'X')
+        In_onYon = ingredient(cebolla, 'Y')
+        In_Zilantro = ingredient(cilantro, 'Z')
+        In_pasNOT = ingredient(pastor, 'CNOT')
+        
+        #List with every taco
+        self.QTaco_list = []
+
+        #QTaco init
+        self.QTaco_list.append(QTaco('Tortilla1'))
+        self.QTaco_list.append(QTaco('Tortilla2'))
+        self.QTaco_list.append(QTaco('Tortilla3'))
 
 
     def process_events(self):
