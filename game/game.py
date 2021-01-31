@@ -8,7 +8,7 @@ from tools import *
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
 FPS = 60
-TIME_LIMIT = 600
+TIME_LIMIT = 6000
 MAX_INGREDIENTS = 6
 SCORE = 0
 NAME = "DEFECTO"
@@ -257,7 +257,9 @@ class InputBox:
         self.color = BLACK
         self.COLOR_ACTIVE = BLUE
         self.COLOR_INACTIVE = BLACK
+        self.FONT = pg.font.Font(None, 32)
         self.text = text
+        self.txt_surface = self.FONT.render(text, True, self.color)
         self.active = False
 
     def handle_event(self, event):
@@ -280,7 +282,7 @@ class InputBox:
                 else:
                     self.text += event.unicode
                 # Re-render the text.
-                self.txt_surface = FONT.render(self.text, True, self.color)
+                self.txt_surface = self.FONT.render(self.text, True, self.color)
 
     def update(self):
         # Resize the box if the text is too long.
@@ -289,7 +291,7 @@ class InputBox:
 
     def draw(self, screen):
         # Blit the text.
-        message_to_screen(screen,self.text, self.color,(self.rect.x+5, self.rect.y+5),50)
+        screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
         # Blit the rect.
         pg.draw.rect(screen, self.color, self.rect, 2)
 
@@ -458,7 +460,7 @@ class Menu():
                         button.hover_effects()
             
             #Input boxes
-            for box in input_boxes:
+            for box in self.input_boxes:
                 box.handle_event(event)
 
 
@@ -508,20 +510,65 @@ class Menu():
             timer -= 1
             time_bar_width -= time_bar_speed
             if timer <= 0:
-                self.game_over()
+                player_name = self.game_over()
                 record_score(player_name)
                 SCORE = 0
                 done = True
 
 
     def leaderboard(self):
-        pass
+        done = False
+
+        button_list = []
+        
+        button_list.append(self.back_btn)
+
+        while not done:
+            done = self.process_events(button_list)
+
+            #Display elements
+            self.screen.fill(RED)
+            #self.screen.blit(credits_bg,(0,0))
+            for button in button_list:
+                button.draw(self.screen)
+
+            pg.display.flip()
 
     def howtoplay(self):
-        pass
+        done = False
+
+        button_list = []
+        
+        button_list.append(self.back_btn)
+
+        while not done:
+            done = self.process_events(button_list)
+
+            #Display elements
+            self.screen.fill(BLUE)
+            #self.screen.blit(credits_bg,(0,0))
+            for button in button_list:
+                button.draw(self.screen)
+
+            pg.display.flip()
 
     def options(self):
-        pass
+        done = False
+
+        button_list = []
+        
+        button_list.append(self.back_btn)
+
+        while not done:
+            done = self.process_events(button_list)
+
+            #Display elements
+            self.screen.fill(RED)
+            #self.screen.blit(credits_bg,(0,0))
+            for button in button_list:
+                button.draw(self.screen)
+
+            pg.display.flip()
 
     def credits(self):
         done = False
@@ -543,6 +590,7 @@ class Menu():
     
     def game_over(self):
         done = False
+        player_name = ""
 
         button_list = []
         
@@ -556,14 +604,18 @@ class Menu():
             #self.screen.blit(credits_bg,(0,0))
             for button in button_list:
                 button.draw(self.screen)
-            for box in input_boxes:
+            for box in self.input_boxes:
                     box.update()
 
             self.screen.fill((30, 30, 30))
-            for box in input_boxes:
-                box.draw(screen)
+            for box in self.input_boxes:
+                box.draw(self.screen)
+                player_name = box.text
 
             pg.display.flip()
+
+        
+        return player_name
 
     def menu_open(self,button):
         callback = button.callback
