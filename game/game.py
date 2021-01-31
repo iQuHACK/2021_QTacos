@@ -118,11 +118,6 @@ class ingredient():
         self.image = image
         self.gate = gate
 
-"""
-/////////////////////////////////////////////////////////////////
-    ELEMENTS FOR THE QUANTUM ENGINE
-/////////////////////////////////////////////////////////////////
-"""
 #Ingredient init
 In_desHebrada = ingredient(deshebrada, 'hadamard')
 In_Xicken = ingredient(chicken, 'x')
@@ -172,9 +167,6 @@ class QTaco_builder():
         if callback == 'Paper':
             for QTaco in self.QTaco_list:
                 QTaco.ingredients_list = []
-            """
-            AQUÍ VA EL ALGORITMO DE MEDICIÓN
-            """
             qc.barrier()
             qc.measure([0,1,2],[0,1,2])
     
@@ -198,11 +190,6 @@ class QTaco_builder():
         #Call this method to draw the ingredients on the QTortilla
         for QTaco in self.QTaco_list:
             QTaco.draw(screen)
-
-"""
-/////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////
-"""
 
 class Button():
     def __init__(self, image, effects, position, size, callback):
