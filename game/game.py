@@ -13,20 +13,28 @@ BLUE    = (     0,  0,  255)
 
 #Import resources
 background = pg.image.load('resources/images/background.jpg')
+
 plate = pg.image.load('resources/images/plate.png')
+
 tortilla = pg.image.load('resources/images/tortilla.png')
+
 deshebrada = pg.image.load('resources/images/deshebrada.png')
 trompo = pg.image.load('resources/images/trompo.png')
 pastor = pg.image.load('resources/images/pastor.png')
 cilantro = pg.image.load('resources/images/cilantro.png')
 cebolla = pg.image.load('resources/images/cebolla.png')
 chicken = pg.image.load('resources/images/chicken.png')
+
 tortilla_glow = pg.image.load('resources/images/tortilla_glow.png')
 deshebrada_glow = pg.image.load('resources/images/deshebrada_glow.png')
 trompo_glow = pg.image.load('resources/images/trompo_glow.png')
 cilantro_glow = pg.image.load('resources/images/cilantro_glow.png')
 cebolla_glow = pg.image.load('resources/images/cebolla_glow.png')
 chicken_glow = pg.image.load('resources/images/chicken_glow.png')
+
+paper = pg.image.load('resources/images/paper.png')
+no_glow = pg.image.load('resources/images/no_glow.png')
+
 
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
@@ -101,6 +109,7 @@ class Game(object):
         self.button_list.append(button(chicken, chicken_glow, (180,260),(140,140),'Chicken'))
         self.button_list.append(button(cilantro, cilantro_glow, (0,200),(155,80),'Cilantro'))
         self.button_list.append(button(cebolla, cebolla_glow, (180,130),(120,100),'Cebolla'))
+        self.button_list.append(button(paper, deshebrada_glow, (10,-10),(250,120),'Paper'))
 
 
     def process_events(self):
@@ -144,10 +153,10 @@ class Game(object):
     
 
     def display_frame(self, screen, time_bar_width):
+        #Background elements
         screen.fill(BLACK)
         screen.blit(background,(0,0))
         screen.blit(plate,(370,90))
-        pg.draw.rect(screen, RED,(0,0,time_bar_width,20))
 
         #Display game elements
         for button in self.button_list:
@@ -156,6 +165,13 @@ class Game(object):
         #Display Score
         score_msg = "Score: " + str(self.score)
         message_to_screen(screen,score_msg,BLUE,(710,40),60)
+
+        #Display order
+        order_msg = "|001>"
+        message_to_screen(screen,order_msg,BLACK,(40,40),60)
+
+        #Display timer bar
+        pg.draw.rect(screen, RED,(0,0,time_bar_width,20))
 
         pg.display.flip()
 
