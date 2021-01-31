@@ -18,8 +18,8 @@ BLUE    = (     0,  0,  255)
 #Import resources
 game_folder = os.path.dirname(os.path.abspath(__file__))
 image_list = []
-background = pg.image.load(os.path.join(game_folder,'resources/backgrounds/background.jpg'))
-image_list.append(background)
+game_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/game.jpg'))
+image_list.append(game_bg)
 
 plate = pg.image.load(os.path.join(game_folder,'resources/images/plate.png'))
 image_list.append(plate)
@@ -283,7 +283,7 @@ class Game(object):
     def display_frame(self, screen, time_bar_width):
         #Background elements
         screen.fill(BLACK)
-        screen.blit(background,(0,0))
+        screen.blit(game_bg,(0,0))
         screen.blit(plate,(370,90))
 
         #Display game elements
@@ -386,13 +386,13 @@ class Menu():
         if callback == 'Play':
             self.game_rt()
         elif callback == 'Leaderboard':
-            self.game_rt()
+            self.leaderboard()
         elif callback == 'How to Play':
-            self.game_rt()
+            self.howtoplay()
         elif callback == 'Options':
-            self.game_rt()
+            self.options()
         elif callback == 'Credits':
-            self.game_rt()
+            self.credits()
 
 
 def main():
