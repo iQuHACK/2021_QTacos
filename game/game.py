@@ -57,6 +57,8 @@ options = pg.image.load(os.path.join(game_folder,'resources/buttons/options.png'
 options_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/options_glow.png'))
 cred = pg.image.load(os.path.join(game_folder,'resources/buttons/credits.png'))
 cred_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/credits_glow.png'))
+back = pg.image.load(os.path.join(game_folder,'resources/buttons/back.png'))
+back_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/back_glow.png'))
 
 #Circuit and initial state
 qc, state = inicioRandom()
@@ -354,11 +356,11 @@ class Menu():
 
         button_list = []
 
-        button_list.append(Button(play, play_glow, (10,100),(180,180),'Play'))
-        button_list.append(Button(leaderboard, leaderboard_glow, (10,200),(180,180),'Leaderboard'))
-        button_list.append(Button(howtoplay, howtoplay_glow, (10,300),(180,180),'How to Play'))
-        button_list.append(Button(options, options_glow, (10,350),(180,180),'Options'))
-        button_list.append(Button(cred, cred_glow, (510,350),(180,180),'Credits'))
+        button_list.append(Button(play, play_glow, (-15,100),(150,50),'Play'))
+        button_list.append(Button(leaderboard, leaderboard_glow, (0,200),(150,50),'Leaderboard'))
+        button_list.append(Button(howtoplay, howtoplay_glow, (0,300),(50,50),'How to Play'))
+        button_list.append(Button(options, options_glow, (0,350),(150,50),'Options'))
+        button_list.append(Button(cred, cred_glow, (400,500),(150,50),'Credits'))
 
         while not done:
             done = self.process_events(button_list)
