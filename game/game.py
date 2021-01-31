@@ -1,5 +1,6 @@
 import pygame as pg
 import random
+from tools import *
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
