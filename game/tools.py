@@ -81,6 +81,6 @@ def dictostr(dic):
     str_orden = ""
     for key, value in dic.items():
         if value >= 5.0:
-            str_orden += f"|{key}⟩: {value}% \n"
+            str_orden += f"|{key}>: {value}% ; "
         
     return str_orden
