@@ -47,6 +47,13 @@ qc, state = inicioRandom()
 state_objetivo = randomQuantumState()
 state_objetivo_str = dictostr(state_objetivo)
 
+def newCircuit():
+    global qc, state, state_objetivo, state_objetivo_str
+    
+    qc, state = inicioRandom()
+    state_objetivo = randomQuantumState()
+    state_objetivo_str = dictostr(state_objetivo)
+
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
     font = pg.font.SysFont(None, size)
@@ -157,8 +164,10 @@ class QTaco_builder():
             global SCORE
             if resp[0]:
                 SCORE += 1
+                newCircuit()
             else:
                 SCORE += -1
+                newCircuit()
             
             
         elif callback == 'Canasta':
