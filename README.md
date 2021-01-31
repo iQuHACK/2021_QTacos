@@ -31,6 +31,7 @@ The player will
 ## Demostrations
 
 ## ToDo
+* Variable screen size and fullscreen implementation
 
 ## Highlights
 
