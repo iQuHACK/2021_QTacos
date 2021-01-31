@@ -40,3 +40,6 @@ Link video demostrativo
 * More dificulty modes.
 * More variation of ingredients (quantum gates).
 * Variable screen size and fullscreen implementation.
+
+## Powerpoint slides
+https://1drv.ms/p/s!AsddJH1LoMOnrFTfXLWyrtqcfP_2?e=TN3LkY 
