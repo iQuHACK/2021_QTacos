@@ -42,7 +42,8 @@ no_glow = pg.image.load('resources/images/no_glow.png')
 
 #Circuit and initial state
 qc, state = inicioRandom() 
-state_objetivo = dictostr(randomQuantumState())
+state_objetivo = randomQuantumState()
+state_objetivo_str = dictostr(state_objetivo)
 
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
@@ -145,6 +146,14 @@ class QTaco_builder():
             """
             AQUÍ VA EL ALGORITMO DE MEDICIÓN
             """
+            qc.barrier()
+            qc.measure([0,1,2],[0,1,2])
+    
+            simulator = Aer.get_backend('qasm_simulator')
+            rqs = measuring(qc, backend=simulator)
+            resp = similarity(state_objetivo,rqs)
+            print(resp)
+            
             
         elif callback == 'Canasta':
             for QTaco in self.QTaco_list:
@@ -266,7 +275,7 @@ class Game(object):
         message_to_screen(screen,score_msg,BLUE,(710,40),60)
 
         #Display order
-        order_msg = "|001>"
+        order_msg = state_objetivo_str
         message_to_screen(screen,order_msg,BLACK,(40,40),60)
 
         #Display timer bar
