@@ -1,4 +1,4 @@
-#The app is in the branch prueba
+#The app is in the branch Final
 # TaQu Fever
 *Yareli Aguilar, Alejandro Martínez, Diego Pérez, Isaac Pimentel, Saúl Puente.*
 ## Synopsis
