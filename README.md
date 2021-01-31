@@ -1,4 +1,4 @@
-#La aplicasión esta en la rama prueba
+#The app is in the branch prueba
 # TaQu Fever
 *Yareli Aguilar, Alejandro Martínez, Diego Pérez, Isaac Pimentel, Saúl Puente.*
 ## Synopsis
