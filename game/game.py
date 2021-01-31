@@ -1,5 +1,5 @@
 import pygame as pg
-import random, os
+import random,os
 from tools import *
 
 SCREEN_WIDTH = 900
@@ -39,7 +39,7 @@ paper = pg.image.load(os.path.join(game_folder,'resources/images/paper.png'))
 paper_glow = pg.image.load(os.path.join(game_folder,'resources/images/paper_glow.png'))
 canasta = pg.image.load(os.path.join(game_folder,'resources/images/canasta.png'))
 canasta_glow = pg.image.load(os.path.join(game_folder,'resources/images/canasta_glow.png'))
-no_glow = pg.image.load(os.path.join(game_folder,'resources/images/no_glow.png')
+no_glow = pg.image.load(os.path.join(game_folder,'resources/images/no_glow.png'))
 
 #Circuit and initial state
 qc, state = inicioRandom() 
