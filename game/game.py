@@ -4,7 +4,7 @@ import random
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
 FPS = 60
-TIME_LIMIT = 6000
+TIME_LIMIT = 600
 
 #Basic colors
 BLACK   = (     0,  0,    0)
@@ -12,7 +12,8 @@ RED     = (   255,  0,    0)
 BLUE    = (     0,  0,  255)
 
 #Import resources
-background = pg.image.load('background.jpg')
+background = pg.image.load('resources/images/background.jpg')
+plate = pg.image.load('resources/images/plate.png')
 
 class button():
     """
@@ -51,6 +52,7 @@ class Game(object):
     def display_frame(self, screen, time_bar_width):
         screen.fill(BLACK)
         screen.blit(background,(0,0))
+        screen.blit(plate,(370,90))
         pg.draw.rect(screen, RED,(0,0,time_bar_width,20))
         pg.display.flip()
 
