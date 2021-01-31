@@ -1,5 +1,6 @@
 import pygame as pg
 import random
+from tools import *
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
@@ -39,6 +40,8 @@ canasta = pg.image.load('resources/images/canasta.png')
 canasta_glow = pg.image.load('resources/images/canasta_glow.png')
 no_glow = pg.image.load('resources/images/no_glow.png')
 
+#Circuit and initial state
+qc, state = inicioRandom() 
 
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
@@ -90,11 +93,11 @@ class ingredient():
 /////////////////////////////////////////////////////////////////
 """
 #Ingredient init
-In_desHebrada = ingredient(deshebrada, 'H')
-In_Xicken = ingredient(chicken, 'X')
-In_onYon = ingredient(cebolla, 'Y')
-In_Zilantro = ingredient(cilantro, 'Z')
-In_pasNOT = ingredient(pastor, 'CNOT')
+In_desHebrada = ingredient(deshebrada, 'hadamard')
+In_Xicken = ingredient(chicken, 'x')
+In_onYon = ingredient(cebolla, 'y')
+In_Zilantro = ingredient(cilantro, 'z')
+In_pasNOT = ingredient(pastor, 'cnot')
 
 class QTaco_builder():
     def __init__(self):
@@ -111,14 +114,17 @@ class QTaco_builder():
         if callback == 'Tortilla1':
             if self.queue != None:
                 self.QTaco_list[0].add_ingredient(self.queue)
+		add_gate(qc,gate=self.queue.gate,channel=0)
                 self.queue = None
         elif callback == 'Tortilla2':
             if self.queue != None:
                 self.QTaco_list[1].add_ingredient(self.queue)
+		add_gate(qc,gate=self.queue.gate,channel=1)
                 self.queue = None
         elif callback == 'Tortilla3':
             if self.queue != None:
                 self.QTaco_list[2].add_ingredient(self.queue)
+		add_gate(qc,gate=self.queue.gate,channel=2)
                 self.queue = None
         
         if callback == 'Deshebrada':
