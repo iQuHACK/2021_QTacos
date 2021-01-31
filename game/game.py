@@ -347,7 +347,7 @@ class Menu():
     def __init__(self, screen):
         self.screen = screen
         self.main_menu()
-        self.back = Button(back,back_glow,(0,0),(50,50),"Back")
+        self.back_btn = Button(back,back_glow,(0,0),(50,50),"Back")
 
 
     def process_events(self,button_list):
