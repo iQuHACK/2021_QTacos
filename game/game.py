@@ -35,10 +35,10 @@ chicken_glow = pg.image.load('resources/images/chicken_glow.png')
 
 paper = pg.image.load('resources/images/paper.png')
 paper_glow = pg.image.load('resources/images/paper_glow.png')
+canasta = pg.image.load('resources/images/canasta.png')
+canasta_glow = pg.image.load('resources/images/canasta_glow.png')
 no_glow = pg.image.load('resources/images/no_glow.png')
 
-#Circuit and initial state
-qc, state = inicioRandom() 
 
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
@@ -90,11 +90,11 @@ class ingredient():
 /////////////////////////////////////////////////////////////////
 """
 #Ingredient init
-In_desHebrada = ingredient(deshebrada, 'hadamard')
-In_Xicken = ingredient(chicken, 'x')
-In_onYon = ingredient(cebolla, 'y')
-In_Zilantro = ingredient(cilantro, 'z')
-In_pasNOT = ingredient(pastor, 'cnot')
+In_desHebrada = ingredient(deshebrada, 'H')
+In_Xicken = ingredient(chicken, 'X')
+In_onYon = ingredient(cebolla, 'Y')
+In_Zilantro = ingredient(cilantro, 'Z')
+In_pasNOT = ingredient(pastor, 'CNOT')
 
 class QTaco_builder():
     def __init__(self):
@@ -111,18 +111,15 @@ class QTaco_builder():
         if callback == 'Tortilla1':
             if self.queue != None:
                 self.QTaco_list[0].add_ingredient(self.queue)
-                add_gate(qc,gate=self.queue.gate,channel=0)
-                self.queue == None
+                self.queue = None
         elif callback == 'Tortilla2':
             if self.queue != None:
                 self.QTaco_list[1].add_ingredient(self.queue)
-                add_gate(qc,gate=self.queue.gate,channel=1)
-                self.queue == None
+                self.queue = None
         elif callback == 'Tortilla3':
             if self.queue != None:
                 self.QTaco_list[2].add_ingredient(self.queue)
-                add_gate(qc,gate=self.queue.gate,channel=2)
-                self.queue == None
+                self.queue = None
         
         if callback == 'Deshebrada':
             self.queue = In_desHebrada
@@ -141,7 +138,9 @@ class QTaco_builder():
             """
             AQUÍ VA EL ALGORITMO DE MEDICIÓN
             """
-        qc.draw('mpl')
+        elif callback == 'Canasta':
+            for QTaco in self.QTaco_list:
+                QTaco.ingredients_list = []
     
     def draw(self,screen):
         #Call this method to draw the ingredients on the QTortilla
@@ -221,6 +220,7 @@ class Game(object):
         self.button_list.append(button(cilantro, cilantro_glow, (0,200),(155,80),'Cilantro'))
         self.button_list.append(button(cebolla, cebolla_glow, (180,130),(120,100),'Cebolla'))
         self.button_list.append(button(paper, paper_glow, (10,-10),(250,120),'Paper'))
+        self.button_list.append(button(canasta, canasta_glow, (320, 30),(100,80),'Canasta'))
 
 
     def process_events(self):
