@@ -11,7 +11,7 @@ In TaQu Fever you are the Master Taquero, who has to recreate what customers ord
 We want TaQu Fever to be a fun and entertaining quantum game, but also, we want the user to be capable of use and create quantum algorithms, as well as learn about quantum gates and it's effects on the quantum states. By making QTacos, the user, seeing how any ingredient (quantum gate) changes the initial state, adquires experience and motivation to keep making QTacos and do it as fast as he cans to break his own record. With all this, we can say that TaQu Fever is an useful entertaining game with all the posibility to be educational to the user, and also is about delicious quantum food.
 
 ## Elements and rules
-TaQu Fever is a one player game with the next elements:
+TaQu Fever is a single player arcade game with the next elements:
 * QTacos: is the restaurant where the game takes place.
 * Master Taquero: is the user's character.
 * QTortilla: initial quantum state.
