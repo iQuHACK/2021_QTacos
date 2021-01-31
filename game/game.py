@@ -7,6 +7,7 @@ SCREEN_HEIGHT = 600
 FPS = 60
 TIME_LIMIT = 6000
 MAX_INGREDIENTS = 6
+SCORE = 0
 
 #Basic colors
 BLACK   = (     0,  0,    0)
@@ -42,8 +43,9 @@ canasta_glow = pg.image.load(os.path.join(game_folder,'resources/images/canasta_
 no_glow = pg.image.load(os.path.join(game_folder,'resources/images/no_glow.png'))
 
 #Circuit and initial state
-qc, state = inicioRandom() 
-state_objetivo = dictostr(randomQuantumState())
+qc, state = inicioRandom()
+state_objetivo = randomQuantumState()
+state_objetivo_str = dictostr(state_objetivo)
 
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
@@ -146,6 +148,18 @@ class QTaco_builder():
             """
             AQUÍ VA EL ALGORITMO DE MEDICIÓN
             """
+            qc.barrier()
+            qc.measure([0,1,2],[0,1,2])
+    
+            simulator = Aer.get_backend('qasm_simulator')
+            rqs = measuring(qc, backend=simulator)
+            resp = similarity(state_objetivo,rqs)
+            global SCORE
+            if resp[0]:
+                SCORE += 1
+            else:
+                SCORE += -1
+            
             
         elif callback == 'Canasta':
             for QTaco in self.QTaco_list:
@@ -202,7 +216,7 @@ class button():
 
 class Game(object):
     def __init__(self):
-        self.score = 0
+        global SCORE
         self.builder = QTaco_builder()
 
         #List with every game element (buttons)
@@ -263,11 +277,11 @@ class Game(object):
         self.builder.draw(screen)
 
         #Display score
-        score_msg = "Score: " + str(self.score)
+        score_msg = "Score: " + str(SCORE)
         message_to_screen(screen,score_msg,BLUE,(710,40),60)
 
         #Display order
-        order_msg = "|001>"
+        order_msg = state_objetivo_str
         message_to_screen(screen,order_msg,BLACK,(40,40),60)
 
         #Display initial states
