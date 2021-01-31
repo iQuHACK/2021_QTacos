@@ -29,7 +29,7 @@ def add_gate(circuit, gate=None, channel=0, channel_op=0):
 
 def randomQuantumState():
     qc = QuantumCircuit(3,3)
-    for i in range(0,int(random.randint(1,5))):
+    for i in range(0,int(random.randint(1,6))):
         g = random.choice(("hadamard","x","y","z","cnot"))
         if g == "cnot":
             q = random.sample(tuple(range(0,3)),2)
