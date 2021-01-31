@@ -406,7 +406,7 @@ class Menu():
         pg.mixer.music.load('resources/music/acosta.ogg')
         pg.mixer.music.play()
 
-
+        global SCORE
         while not done:
             done = game.process_events()
             game.run_logic
@@ -415,6 +415,7 @@ class Menu():
             timer -= 1
             time_bar_width -= time_bar_speed
             if timer <= 0:
+                SCORE = 0
                 done = True
 
 
