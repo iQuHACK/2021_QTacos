@@ -602,8 +602,10 @@ class Menu():
             self.screen.fill((30, 30, 30))
             for box in self.input_boxes:
                 box.draw(self.screen)
+                player_name = box.text
 
             pg.display.flip()
+
         
         return player_name
 
