@@ -39,10 +39,10 @@ paper = pg.image.load(os.path.join(game_folder,'resources/images/paper.png'))
 paper_glow = pg.image.load(os.path.join(game_folder,'resources/images/paper_glow.png'))
 canasta = pg.image.load(os.path.join(game_folder,'resources/images/canasta.png'))
 canasta_glow = pg.image.load(os.path.join(game_folder,'resources/images/canasta_glow.png'))
-no_glow = pg.image.load(os.path.join(game_folder,'resources/images/no_glow.png')
+no_glow = pg.image.load(os.path.join(game_folder,'resources/images/no_glow.png'))
 
 #Circuit and initial state
-qc, state = inicioRandom() 
+qc, state = inicioRandom()
 state_objetivo = randomQuantumState()
 state_objetivo_str = dictostr(state_objetivo)
 
