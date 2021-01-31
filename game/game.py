@@ -314,6 +314,8 @@ class Menu():
     def __init__(self, screen):
         self.screen = screen
         self.main_menu()
+        self.back = Button(back,back_glow,(0,0),(50,50),"Back")
+
 
     def process_events(self,button_list):
         pos = pg.mouse.get_pos()
@@ -336,6 +338,7 @@ class Menu():
                     if button.isOver(pos):
                         button.hover_effects()
 
+
     def main_menu(self):
         done = False
 
@@ -357,6 +360,7 @@ class Menu():
 
             pg.display.flip()
     
+
     def game_rt(self):
         done = False
         clock = pg.time.Clock()
@@ -374,6 +378,19 @@ class Menu():
             time_bar_width -= time_bar_speed
             if timer <= 0:
                 done = True
+
+
+    def leaderboard(self):
+        
+
+    def howtoplay(self):
+
+
+    def options(self):
+
+
+    def credits(self):
+
 
     def menu_open(self,button):
         callback = button.callback
