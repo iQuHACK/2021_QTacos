@@ -355,6 +355,7 @@ class Menu():
             
             #Display elements
             self.screen.fill(BLUE)
+            screen.blit(main_menu_bg,(0,0))
             for button in button_list:
                 button.draw(self.screen)
 
@@ -381,16 +382,16 @@ class Menu():
 
 
     def leaderboard(self):
-        
+        pass
 
     def howtoplay(self):
-
+        pass
 
     def options(self):
-
+        pass
 
     def credits(self):
-
+        pass
 
     def menu_open(self,button):
         callback = button.callback
