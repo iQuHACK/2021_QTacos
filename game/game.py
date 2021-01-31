@@ -4,7 +4,7 @@ import random
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
 FPS = 60
-TIME_LIMIT = 600
+TIME_LIMIT = 6000
 
 #Basic colors
 BLACK   = (     0,  0,    0)
@@ -14,36 +14,93 @@ BLUE    = (     0,  0,  255)
 #Import resources
 background = pg.image.load('resources/images/background.jpg')
 plate = pg.image.load('resources/images/plate.png')
+tortilla = pg.image.load('resources/images/tortilla.png')
+deshebrada = pg.image.load('resources/images/deshebrada.png')
+trompo = pg.image.load('resources/images/trompo.png')
+pastor = pg.image.load('resources/images/pastor.png')
+cilantro = pg.image.load('resources/images/cilantro.png')
+cebolla = pg.image.load('resources/images/cebolla.png')
+chicken = pg.image.load('resources/images/chicken.png')
+tortilla_glow = pg.image.load('resources/images/tortilla_glow.png')
+deshebrada_glow = pg.image.load('resources/images/deshebrada_glow.png')
+trompo_glow = pg.image.load('resources/images/trompo_glow.png')
+cilantro_glow = pg.image.load('resources/images/cilantro_glow.png')
+cebolla_glow = pg.image.load('resources/images/cebolla_glow.png')
+chicken_glow = pg.image.load('resources/images/chicken_glow.png')
+
+
 
 class button():
-    """
-    def __init__(self, color, x,y,width,height, text='', callback):
-        self.color = color
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.text = text
-        self.callback = callback
-    """
-    def __init__(self, image, position, callback):
+    def __init__(self, image, effects, position, size, callback):
         self.image = image
-        self.rect = image.get_rect(topleft=position)
+        self.effects = effects
+        self.position = position
+        self.size = size
         self.callback = callback
- 
-    def on_click(self, event):
-        if event.button == 1:
-            if self.rect.collidepoint(event.pos):
-                self.callback(self)
+
+        #Hitbox definition
+        self.x = position[0]
+        self.y = position[1]
+        self.width = size[0]
+        self.height = size[1]
+
+        #Effects flag
+        self.do_effects = False
+
+    def draw(self,screen):
+        #Call this method to draw the button on the screen
+        screen.blit(self.image,self.position)
+        if self.do_effects:
+            screen.blit(self.effects, self.position)
+
+
+    def isOver(self, pos):
+        #Pos is the mouse position or a tuple of (x,y) coordinates
+        if pos[0] > self.x and pos[0] < self.x + self.width:
+            if pos[1] > self.y and pos[1] < self.y + self.height:
+                return True
+        
+        self.do_effects = False
+        return False
+
+    def hover_effects(self):
+        self.do_effects = True
+    
+    def do_action(self):
+        print(self.callback)
+
 
 class Game(object):
     def __init__(self):
         self.score = 0
 
+        self.button_list = []
+
+        #Button init
+        self.button_list.append(button(tortilla, tortilla_glow, (380,20),(30,30),'Tortilla'))
+
     def process_events(self):
+        pos = pg.mouse.get_pos()
+
         for event in pg.event.get():
+            #Quit game
             if event.type == pg.QUIT:
                 return True
+            
+            #Click on screen
+            #(Button implementation)
+            if event.type == pg.MOUSEBUTTONDOWN:
+                for button in self.button_list:
+                    if button.isOver(pos):
+                        button.do_action()
+            
+            if event.type == pg.MOUSEMOTION:
+                for button in self.button_list:
+                    if button.isOver(pos):
+                        button.hover_effects()
+                
+
+
         return False
 
     def run_logic(self):
@@ -54,7 +111,13 @@ class Game(object):
         screen.blit(background,(0,0))
         screen.blit(plate,(370,90))
         pg.draw.rect(screen, RED,(0,0,time_bar_width,20))
+
+        for button in self.button_list:
+            button.draw(screen)
+
         pg.display.flip()
+
+
 
 def main():
     pg.init()
