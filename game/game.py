@@ -5,6 +5,7 @@ SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
 FPS = 60
 TIME_LIMIT = 6000
+MAX_INGREDIENTS = 6
 
 #Basic colors
 BLACK   = (     0,  0,    0)
@@ -46,6 +47,7 @@ def message_to_screen(screen,msg,color,position,size):
 class QTaco():
     def __init__(self, QTortilla):
         self.QTortilla = QTortilla
+        self.num_ingredients = 0
 
         #List with every ingredient in the QTaco
         self.ingredients_list = []
@@ -60,18 +62,82 @@ class QTaco():
 
     def draw(self,screen):
         #Call this method to draw the ingredients on the QTortilla
-        for ingredient in ingredients_list:
-            screen.blit(ingredient.image(),self.position)
+        for ingredient in self.ingredients_list:
+            screen.blit(ingredient.image, self.position)
     
     def add_ingredient(self,ingredient):
         #Call this method to add an ingredient to the QTaco
-        self.ingredients_list.append(ingredient)
+        if self.num_ingredients <= MAX_INGREDIENTS:
+            self.ingredients_list.append(ingredient)
+            self.num_ingredients += 1
 
 class ingredient():
     def __init__(self, image, gate):
         self.image = image
         self.gate = gate
 
+"""
+/////////////////////////////////////////////////////////////////
+    ELEMENTS FOR THE QUANTUM ENGINE
+/////////////////////////////////////////////////////////////////
+"""
+#Ingredient init
+In_desHebrada = ingredient(deshebrada, 'H')
+In_Xicken = ingredient(chicken, 'X')
+In_onYon = ingredient(cebolla, 'Y')
+In_Zilantro = ingredient(cilantro, 'Z')
+In_pasNOT = ingredient(pastor, 'CNOT')
+
+class QTaco_builder():
+    def __init__(self):
+        self.queue = None
+        #List with every taco
+        self.QTaco_list = []
+
+        #QTaco init
+        self.QTaco_list.append(QTaco('Tortilla1'))
+        self.QTaco_list.append(QTaco('Tortilla2'))
+        self.QTaco_list.append(QTaco('Tortilla3'))
+
+    def update(self, callback):
+        if callback == 'Tortilla1':
+            if self.queue != None:
+                self.QTaco_list[0].add_ingredient(self.queue)
+                self.queue == None
+        elif callback == 'Tortilla2':
+            if self.queue != None:
+                self.QTaco_list[1].add_ingredient(self.queue)
+                self.queue == None
+        elif callback == 'Tortilla3':
+            if self.queue != None:
+                self.QTaco_list[2].add_ingredient(self.queue)
+                self.queue == None
+        
+        if callback == 'Deshebrada':
+            self.queue = In_desHebrada
+        elif callback == 'Chicken':
+            self.queue = In_Xicken
+        elif callback == 'Cebolla':
+            self.queue = In_onYon
+        elif callback == 'Cilantro':
+            self.queue = In_Zilantro
+        elif callback == 'Pastor':
+            self.queue = In_pasNOT
+
+        if callback == 'Paper':
+            """
+            AQUÍ VA EL ALGORITMO DE MEDICIÓN
+            """
+    
+    def draw(self,screen):
+        #Call this method to draw the ingredients on the QTortilla
+        for QTaco in self.QTaco_list:
+            QTaco.draw(screen)
+
+"""
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+"""
 
 class button():
     def __init__(self, image, effects, position, size, callback):
@@ -115,8 +181,8 @@ class button():
 
     FALTA IMPLEMENTAR LA 'SUMA' DE INGREDIENTES SOBRE LA TORTILLA
     """
-    def do_action(self):
-        print(self.callback)
+    def do_action(self, builder):
+        builder.update(self.callback)
 
     """
     /////////////////////////////////////////////////////////////////////
@@ -126,6 +192,7 @@ class button():
 class Game(object):
     def __init__(self):
         self.score = 0
+        self.builder = QTaco_builder()
 
         #List with every game element (buttons)
         self.button_list = []
@@ -141,21 +208,6 @@ class Game(object):
         self.button_list.append(button(cebolla, cebolla_glow, (180,130),(120,100),'Cebolla'))
         self.button_list.append(button(paper, paper_glow, (10,-10),(250,120),'Paper'))
 
-        #Ingredient init
-        In_desHebrada = ingredient(deshebrada, 'hadamard')
-        In_Xicken = ingredient(chicken, 'x')
-        In_onYon = ingredient(cebolla, 'y')
-        In_Zilantro = ingredient(cilantro, 'z')
-        In_pasNOT = ingredient(pastor, 'cnot')
-        
-        #List with every taco
-        self.QTaco_list = []
-
-        #QTaco init
-        self.QTaco_list.append(QTaco('Tortilla1'))
-        self.QTaco_list.append(QTaco('Tortilla2'))
-        self.QTaco_list.append(QTaco('Tortilla3'))
-
 
     def process_events(self):
         pos = pg.mouse.get_pos()
@@ -170,7 +222,7 @@ class Game(object):
             if event.type == pg.MOUSEBUTTONDOWN:
                 for button in self.button_list:
                     if button.isOver(pos):
-                        button.do_action()
+                        button.do_action(self.builder)
             
             #Hover effects trigger
             if event.type == pg.MOUSEMOTION:
@@ -207,7 +259,10 @@ class Game(object):
         for button in self.button_list:
             button.draw(screen)
 
-        #Display Score
+        #Display ingredients in the QTortillas
+        self.builder.draw(screen)
+
+        #Display score
         score_msg = "Score: " + str(self.score)
         message_to_screen(screen,score_msg,BLUE,(710,40),60)
 
