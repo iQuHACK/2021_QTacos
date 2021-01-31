@@ -153,7 +153,10 @@ class QTaco_builder():
             simulator = Aer.get_backend('qasm_simulator')
             rqs = measuring(qc, backend=simulator)
             resp = similarity(state_objetivo,rqs)
-            print(resp)
+            if resp[0]:
+                self.score += 1
+            else:
+                self.score += -1
             
             
         elif callback == 'Canasta':
