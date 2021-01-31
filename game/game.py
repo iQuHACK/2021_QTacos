@@ -28,6 +28,7 @@ game_folder = os.path.dirname(os.path.abspath(__file__))
 
 game_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/game.png'))
 main_menu_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/main_menu.png'))
+#credits_bg = pg.image.load(os.path.join(game_folder,'resources/backgrounds/credits.png'))
 
 plate = pg.image.load(os.path.join(game_folder,'resources/images/plate.png'))
 
@@ -66,6 +67,7 @@ cred_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/credits_gl
 back = pg.image.load(os.path.join(game_folder,'resources/buttons/back.png'))
 back_glow = pg.image.load(os.path.join(game_folder,'resources/buttons/back_glow.png'))
 
+songs = ['resources/music/acosta.ogg', 'resources/music/ramito.ogg']
 """
 ///////////////////////////////////////////////////////////
    QUANTUM ENGINE
@@ -370,8 +372,10 @@ class Game(object):
 class Menu():
     def __init__(self, screen):
         self.screen = screen
-        self.main_menu()
         self.back_btn = Button(back,back_glow,(0,0),(50,50),"Back")
+
+        #Launch app
+        self.main_menu()
 
 
     def process_events(self,button_list):
@@ -420,6 +424,9 @@ class Menu():
     
 
     def game_rt(self):
+        global songs
+        song = random.choice(songs)
+        
         done = False
         clock = pg.time.Clock()
         timer = TIME_LIMIT
@@ -427,7 +434,7 @@ class Menu():
         time_bar_speed = SCREEN_WIDTH / TIME_LIMIT
         game = Game()
 
-        pg.mixer.music.load(os.path.join(game_folder,'resources/music/acosta.ogg'))
+        pg.mixer.music.load(os.path.join(game_folder,song))
         pg.mixer.music.play()
 
         global SCORE
@@ -453,7 +460,22 @@ class Menu():
         pass
 
     def credits(self):
-        pass
+        done = False
+
+        button_list = []
+        
+        button_list.append(self.back_btn)
+
+        while not done:
+            done = self.process_events(button_list)
+
+            #Display elements
+            self.screen.fill(RED)
+            #self.screen.blit(credits_bg,(0,0))
+            for button in button_list:
+                button.draw(self.screen)
+
+            pg.display.flip()
 
     def menu_open(self,button):
         callback = button.callback
@@ -467,6 +489,8 @@ class Menu():
             self.options()
         elif callback == 'Credits':
             self.credits()
+        elif callback == 'Back':
+            pass
 
 """
 ///////////////////////////////////////////////////////////
