@@ -39,8 +39,8 @@ class button():
         self.callback = callback
 
         #Hitbox definition
-        self.x = position[0]
-        self.y = position[1]
+        self.x = position[0] + (size[0] / 6)
+        self.y = position[1] + (size[1] / 6)
         self.width = size[0]
         self.height = size[1]
 
@@ -56,8 +56,8 @@ class button():
 
     def isOver(self, pos):
         #Pos is the mouse position or a tuple of (x,y) coordinates
-        if pos[0] > self.x and pos[0] < self.x + self.width:
-            if pos[1] > self.y and pos[1] < self.y + self.height:
+        if pos[0] > self.x and pos[0] < (self.x + self.width):
+            if pos[1] > self.y and pos[1] < (self.y + self.height):
                 return True
         
         self.do_effects = False
@@ -77,7 +77,15 @@ class Game(object):
         self.button_list = []
 
         #Button init
-        self.button_list.append(button(tortilla, tortilla_glow, (380,20),(30,30),'Tortilla'))
+        self.button_list.append(button(tortilla, tortilla_glow, (510,100),(180,180),'Tortilla1'))
+        self.button_list.append(button(tortilla, tortilla_glow, (390,285),(180,180),'Tortilla2'))
+        self.button_list.append(button(tortilla, tortilla_glow, (620,290),(180,180),'Tortilla3'))
+        self.button_list.append(button(trompo, trompo_glow, (0,310),(200,280),'Trompo'))
+        self.button_list.append(button(deshebrada, deshebrada_glow, (230,410),(150,150),'Deshebrada'))
+        self.button_list.append(button(chicken, chicken_glow, (180,260),(140,140),'Chicken'))
+        self.button_list.append(button(cilantro, cilantro_glow, (0,200),(155,80),'Cilantro'))
+        self.button_list.append(button(cebolla, cebolla_glow, (180,130),(120,100),'Cebolla'))
+
 
     def process_events(self):
         pos = pg.mouse.get_pos()
@@ -112,6 +120,7 @@ class Game(object):
         screen.blit(plate,(370,90))
         pg.draw.rect(screen, RED,(0,0,time_bar_width,20))
 
+        #Display elements
         for button in self.button_list:
             button.draw(screen)
 
