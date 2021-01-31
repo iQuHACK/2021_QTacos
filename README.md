@@ -32,6 +32,7 @@ The player will start with 3 QTortillas in a plate. As we explained in the synop
 Since it's a time trial game, you will have 60 seconds to complete as much correct QTacos as you can (you can also set the time limit).
 
 ## Demostrations
+Link video demostrativo
 
 ## ToDo
 #### Proposals for future work:
@@ -39,11 +40,3 @@ Since it's a time trial game, you will have 60 seconds to complete as much corre
 * More dificulty modes.
 * More variation of ingredients (quantum gates).
 * Variable screen size and fullscreen implementation.
-
-## instrucciones
-* algún detalle en la implementación ????
-* a clear title for your project,
-* a short abstract,
-* the motivation/goals for your project,
-* a description of the work you did, and
-* proposals for future work.
