@@ -1,6 +1,7 @@
 import pygame as pg
 import random,os
 import copy
+import pandas as pd
 from qiskit import QuantumCircuit, Aer, execute
 from tools import *
 
@@ -10,6 +11,7 @@ FPS = 60
 TIME_LIMIT = 600
 MAX_INGREDIENTS = 6
 SCORE = 0
+NAME = "DEFECTO"
 CNOT_COUNT = 0
 CNOT_CHANNEL1 = 0
 
@@ -240,7 +242,13 @@ def message_to_screen(screen,msg,color,position,size):
     screen.blit(text,position)
 
 def record_score(player_name):
-    print(SCORE)
+    global score
+    score = pd.read_csv('resources/docs/leaderboard.csv')
+    new_score = (player_name,SCORE)
+    score.append(new_score)
+    score = score.sort_values('score')
+    score.to_csv('resources/docs/leaderboard.csv')
+    
 
 class InputBox:
 
