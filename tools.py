@@ -3,7 +3,6 @@ import random
 from qiskit import QuantumCircuit, Aer, execute
 from scipy.spatial.distance import cosine
 
-
 def measuring(circuit, backend, shots=2000):
     job = execute(circuit, backend, shots=shots)
     result = job.result()
