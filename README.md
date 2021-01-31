@@ -5,7 +5,7 @@ It's food time and everyone wants to eat at QTacos!
 Take orders and make the perfect taco by using awesome quantum gate ingredients!
 In TaQu Fever you are the Master Taquero, who has to recreate what customers order. You start with a QTortilla, which is a qubit in an initial quantum state, then you apply different ingredients made of quantum gates, and what you get is an awesome QTaco, which you can see as a qubit in a final quantum state. If this QTaco is the QTaco the customer ordered, you win one point. Don't forget this is a time trial game! What will be your highest record?
 
-## Basic Principles (technical concepts quantum mechanics and quantum computing)
+## Basic Principles (technical concepts quantum mechanics and quantum computing)/ en qué lenguaje está programado y si hay algún detalle con la implementación también.
 
 
 ## Motivation/Goals
