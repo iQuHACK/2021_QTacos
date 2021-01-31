@@ -403,7 +403,7 @@ class Menu():
         time_bar_speed = SCREEN_WIDTH / TIME_LIMIT
         game = Game()
 
-        pg.mixer.music.load('resources/music/acosta.ogg')
+        pg.mixer.music.load(os.path.join(game_folder,'resources/music/acosta.ogg'))
         pg.mixer.music.play()
 
 
