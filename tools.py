@@ -76,3 +76,11 @@ def inicioRandom():
             qc.x(i)
     base = "|" + base + ">"
     return qc,base
+
+def dictostr(dic):
+    str_orden = ""
+    for key, value in dic.items():
+        if value >= 5.0:
+            str_orden += f"|{key}⟩: {value}% \n"
+        
+    return str_orden
