@@ -42,6 +42,7 @@ no_glow = pg.image.load('resources/images/no_glow.png')
 
 #Circuit and initial state
 qc, state = inicioRandom() 
+state_objetivo = dictostr(randomQuantumState())
 
 #Text render method
 def message_to_screen(screen,msg,color,position,size):
@@ -144,6 +145,7 @@ class QTaco_builder():
             """
             AQUÍ VA EL ALGORITMO DE MEDICIÓN
             """
+            
         elif callback == 'Canasta':
             for QTaco in self.QTaco_list:
                 QTaco.ingredients_list = []
